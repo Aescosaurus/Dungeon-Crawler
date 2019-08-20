@@ -25,8 +25,10 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	cam( gfx )
+	cam( gfx ),
+	player( tilemap.GetRandFloorPos() )
 {
+	cam.CenterOn( player.GetPos() );
 }
 
 void Game::Go()
@@ -39,10 +41,12 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	player.Update( wnd.kbd );
+	cam.CenterOn( player.GetPos() );
 }
 
 void Game::ComposeFrame()
 {
 	tilemap.Draw( cam );
-	// player.Draw( cam );
+	player.Draw( cam );
 }

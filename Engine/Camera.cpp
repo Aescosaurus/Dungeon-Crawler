@@ -19,7 +19,7 @@ void Camera::RenderRect( const Vec2& pos,Color c ) const
 
 void Camera::CenterOn( const Vec2& pos )
 {
-	viewArea.MoveTo( pos );
+	viewArea.MoveTo( pos - Vec2( Vei2( viewArea.GetSize() ) / 2 ) );
 }
 
 const Rect& Camera::GetViewArea() const
