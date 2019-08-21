@@ -23,12 +23,22 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+
 #include "Camera.h"
 #include "TileMap.h"
 #include "Player.h"
+#include "FrameTimer.h"
 
 class Game
 {
+private:
+	enum class State
+	{
+		PlayerStart,
+		PlayerTurn,
+		PlayerEnd
+		// enemy start, enemy end, etc.
+	};
 public:
 	Game( class MainWindow& wnd );
 	Game( const Game& ) = delete;
@@ -48,5 +58,7 @@ private:
 	Camera cam;
 	TileMap tilemap;
 	Player player;
+	State gameState = State::PlayerStart;
+	FrameTimer ft;
 	/********************************/
 };

@@ -73,6 +73,11 @@ public:
 		const auto randY = int( Random{ top,bottom - 1 } );
 		return( Vei2{ randX,randY } );
 	}
+	constexpr Rect_ GetExpandedBy( T amount ) const
+	{
+		return( Rect_<T>{ left - amount,right + amount,
+			top - amount,bottom + amount } );
+	}
 
 	constexpr Vec2_<T> GetTopLeft() const
 	{

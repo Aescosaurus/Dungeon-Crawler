@@ -7,9 +7,9 @@ Camera::Camera( Graphics& gfx )
 
 void Camera::RenderRect( const Vec2& pos,Color c ) const
 {
-	if( viewArea.OverlapsPoint( pos ) )
+	if( viewArea.GetExpandedBy( 1.0f ).OverlapsPoint( pos ) )
 	{
-		gfx.DrawRect(
+		gfx.DrawRectSafe(
 			int( ( pos.x - viewArea.left ) * float( tileSize ) ),
 			int( ( pos.y - viewArea.top ) * float( tileSize ) ),
 			tileSize,tileSize,

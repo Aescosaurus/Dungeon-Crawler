@@ -327,6 +327,21 @@ void Graphics::DrawRect( int x,int y,int width,int height,Color c )
 	}
 }
 
+void Graphics::DrawRectSafe( int x,int y,int width,int height,Color c )
+{
+	for( int py = y; py < y + height; ++py )
+	{
+		for( int px = x; px < x + width; ++px )
+		{
+			if( px >= 0 && px < ScreenWidth &&
+				py >= 0 && py < ScreenHeight )
+			{
+				PutPixel( px,py,c );
+			}
+		}
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception

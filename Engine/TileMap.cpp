@@ -12,10 +12,10 @@ void TileMap::Draw( const Camera& cam ) const
 	const auto viewArea = RectI( cam.GetViewArea() );
 
 	// for( int y = 0; y < height; ++y )
-	for( int y = viewArea.top; y < viewArea.bottom; ++y )
+	for( int y = viewArea.top - 1; y < viewArea.bottom + 1; ++y )
 	{
 		// for( int x = 0; x < width; ++x )
-		for( int x = viewArea.left; x < viewArea.right; ++x )
+		for( int x = viewArea.left - 1; x < viewArea.right + 1; ++x )
 		{
 			const auto col = ( GetTile( x,y ) == TileType::Wall )
 				? Colors::Gray : Colors::Yellow;

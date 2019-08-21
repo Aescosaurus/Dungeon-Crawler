@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	cam( gfx ),
-	player( tilemap.GetRandFloorPos() )
+	player( tilemap.GetRandFloorPos(),tilemap,cam )
 {
 	cam.CenterOn( player.GetPos() );
 }
@@ -41,8 +41,20 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	player.Update( wnd.kbd );
-	cam.CenterOn( player.GetPos() );
+	const auto dt = ft.Mark();
+	// player.Update( wnd.kbd );
+	switch( gameState )
+	{
+	case State::PlayerStart:
+		if( player.StartTurn( wnd.kbd ) ) gameState = State::PlayerTurn;
+		break;
+	case State::PlayerTurn:
+		if( player.UpdateTurn( dt ) ) gameState = State::PlayerEnd;
+		break;
+	case State::PlayerEnd:
+		if( player.EndTurn() ) gameState = State::PlayerStart;
+		break;
+	}
 }
 
 void Game::ComposeFrame()
