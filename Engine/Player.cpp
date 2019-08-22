@@ -8,14 +8,6 @@ Player::Player( const Vec2& pos,const TileMap& tilemap,
 	cam( cam )
 {}
 
-void Player::Update( const Keyboard& kbd )
-{
-	if( kbd.KeyIsPressed( 'W' ) ) --pos.y;
-	if( kbd.KeyIsPressed( 'S' ) ) ++pos.y;
-	if( kbd.KeyIsPressed( 'A' ) ) --pos.x;
-	if( kbd.KeyIsPressed( 'D' ) ) ++pos.x;
-}
-
 bool Player::StartTurn( const Keyboard& kbd )
 {
 	move = { 0,0 };
@@ -24,7 +16,10 @@ bool Player::StartTurn( const Keyboard& kbd )
 	else if( kbd.KeyIsPressed( 'A' ) ) --move.x;
 	else if( kbd.KeyIsPressed( 'D' ) ) ++move.x;
 
-	if( move.x != 0 || move.y != 0 )
+	if( ( move.x != 0 || move.y != 0 ) &&
+		tilemap.GetTile( int( pos.x ) + move.x,
+		int( pos.y ) + move.y ) ==
+		TileMap::TileType::Floor )
 	{
 		target = Vei2( pos ) + move;
 		return( true );

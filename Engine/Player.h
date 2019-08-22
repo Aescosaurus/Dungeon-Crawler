@@ -12,7 +12,6 @@ public:
 	Player( const Vec2& pos,const TileMap& tilemap,
 		Camera& cam );
 
-	void Update( const Keyboard& kbd ); // TODO: Bye!
 	bool StartTurn( const Keyboard& kbd );
 	bool UpdateTurn( float dt );
 	bool EndTurn();
