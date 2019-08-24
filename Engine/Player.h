@@ -3,6 +3,7 @@
 #include "Vec2.h"
 #include "Camera.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 #include "TileMap.h"
 #include "Timer.h"
 
@@ -12,8 +13,8 @@ public:
 	Player( const Vec2& pos,const TileMap& tilemap,
 		Camera& cam );
 
-	bool StartTurn( const Keyboard& kbd );
-	bool UpdateTurn( float dt );
+	bool StartTurn( const Keyboard& kbd,const Mouse& mouse );
+	bool UpdateTurn( const Mouse& mouse,float dt );
 	bool EndTurn();
 	void Draw( const Camera& cam ) const;
 

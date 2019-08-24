@@ -8,7 +8,7 @@ Player::Player( const Vec2& pos,const TileMap& tilemap,
 	cam( cam )
 {}
 
-bool Player::StartTurn( const Keyboard& kbd )
+bool Player::StartTurn( const Keyboard& kbd,const Mouse& mouse )
 {
 	move = { 0,0 };
 	if( kbd.KeyIsPressed( 'W' ) ) --move.y;
@@ -30,7 +30,7 @@ bool Player::StartTurn( const Keyboard& kbd )
 	}
 }
 
-bool Player::UpdateTurn( float dt )
+bool Player::UpdateTurn( const Mouse& mouse,float dt )
 {
 	pos += Vec2( move ) / moveTimer.GetMaxTime() * dt;
 	cam.CenterOn( pos );
