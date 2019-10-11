@@ -327,6 +327,22 @@ void Graphics::DrawRect( int x,int y,int width,int height,Color c )
 	}
 }
 
+void Graphics::DrawRectDim( int x1,int y1,int x2,int y2,Color c )
+{
+	DrawRectDim( RectI{ x1,x2,y1,y2 },c );
+}
+
+void Graphics::DrawRectDim( const RectI& rect,Color c )
+{
+	for( int y = rect.top; y < rect.bottom; ++y )
+	{
+		for( int x = rect.left; x < rect.right; ++x )
+		{
+			PutPixel( x,y,c );
+		}
+	}
+}
+
 void Graphics::DrawRectSafe( int x,int y,int width,int height,Color c )
 {
 	for( int py = y; py < y + height; ++py )

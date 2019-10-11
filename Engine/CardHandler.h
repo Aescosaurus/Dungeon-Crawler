@@ -1,12 +1,20 @@
 #pragma once
 
+#include <vector>
+#include "Rect.h"
+#include "Keyboard.h"
 #include "Mouse.h"
+#include "Graphics.h"
 
 class CardHandler
 {
 public:
-	bool StartTurn( const Mouse& mouse );
-	bool UpdateTurn( const Mouse& mouse,float dt );
-	bool EndTurn();
+	CardHandler( const RectI& cardArea );
+
+	void Update( const Keyboard& kbd,const Mouse& mouse );
+	void Draw( Graphics& gfx ) const;
 private:
+	static constexpr int nCards = 3;
+	static constexpr int padding = 5;
+	std::vector<RectI> cardSlots;
 };

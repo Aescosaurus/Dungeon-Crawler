@@ -34,7 +34,7 @@ public:
 		return( std::min( 1.0f,curTime / maxTime ) );
 	}
 public:
-	static constexpr float turnTime = 0.3f;
+	static constexpr float turnTime = 0.2f;
 private:
 	float maxTime;
 	float curTime;

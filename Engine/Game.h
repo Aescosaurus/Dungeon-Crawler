@@ -28,6 +28,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "FrameTimer.h"
+#include "SideMenu.h"
 
 class Game
 {
@@ -57,6 +58,7 @@ private:
 	/*  User Variables              */
 	Camera cam;
 	TileMap tilemap;
+	SideMenu menu;
 	Player player;
 	State gameState = State::PlayerStart;
 	FrameTimer ft;

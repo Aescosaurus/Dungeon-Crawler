@@ -26,7 +26,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	cam( gfx ),
-	player( tilemap.GetRandFloorPos(),tilemap,cam )
+	menu( cam ),
+	player( tilemap.GetRandFloorPos(),tilemap,cam,menu )
 {
 	cam.CenterOn( player.GetPos() );
 }
@@ -46,10 +47,10 @@ void Game::UpdateModel()
 	switch( gameState )
 	{
 	case State::PlayerStart:
-		if( player.StartTurn( wnd.kbd ) ) gameState = State::PlayerTurn;
+		if( player.StartTurn( wnd.kbd,wnd.mouse ) ) gameState = State::PlayerTurn;
 		break;
 	case State::PlayerTurn:
-		if( player.UpdateTurn( dt ) ) gameState = State::PlayerEnd;
+		if( player.UpdateTurn( wnd.mouse,dt ) ) gameState = State::PlayerEnd;
 		break;
 	case State::PlayerEnd:
 		if( player.EndTurn() ) gameState = State::PlayerStart;
@@ -61,4 +62,6 @@ void Game::ComposeFrame()
 {
 	tilemap.Draw( cam );
 	player.Draw( cam );
+
+	menu.Draw( gfx );
 }
