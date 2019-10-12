@@ -6,7 +6,8 @@ Player::Player( const Vec2& pos,const TileMap& tilemap,
 	pos( pos ),
 	tilemap( tilemap ),
 	cam( cam ),
-	menu( menu )
+	menu( menu ),
+	cardHandler( menu.GetCardHandler() )
 {}
 
 bool Player::StartTurn( const Keyboard& kbd,const Mouse& mouse )
@@ -18,6 +19,9 @@ bool Player::StartTurn( const Keyboard& kbd,const Mouse& mouse )
 	else if( kbd.KeyIsPressed( 'A' ) ) --move.x;
 	else if( kbd.KeyIsPressed( 'D' ) ) ++move.x;
 
+	// Play card turn.
+	menu.Update( kbd,mouse );
+
 	if( ( move.x != 0 || move.y != 0 ) &&
 		tilemap.GetTile( int( pos.x ) + move.x,
 		int( pos.y ) + move.y ) ==
@@ -27,9 +31,12 @@ bool Player::StartTurn( const Keyboard& kbd,const Mouse& mouse )
 		turn = TurnType::Movement;
 		return( true );
 	}
-	// else if cardhandler.selectedcard != null
-	//  turn = turntype::attack
-	//  return true
+	else if( cardHandler.HasSelectedCard() )
+	{
+		turn = TurnType::Attack;
+		target = cardHandler.GetTarget();
+		return( true );
+	}
 	else
 	{
 		return( false );
@@ -59,7 +66,7 @@ bool Player::UpdateTurn( const Mouse& mouse,float dt )
 		}
 		break;
 	case TurnType::Attack:
-		return( true );
+		return( cardHandler.PlaySelectedCard( dt ) );
 		break;
 	default:
 		assert( false );
@@ -70,9 +77,23 @@ bool Player::UpdateTurn( const Mouse& mouse,float dt )
 
 bool Player::EndTurn()
 {
-	pos = target;
-	cam.CenterOn( pos );
-	move = { 0,0 };
+	switch( turn )
+	{
+	case TurnType::None:
+		break;
+	case TurnType::Movement:
+		pos = target;
+		cam.CenterOn( pos );
+		move = { 0,0 };
+		break;
+	case TurnType::Attack:
+		// Apply damage to enemy in target square.
+		break;
+	default:
+		assert( false );
+		break;
+	}
+
 	return( true );
 }
 

@@ -11,7 +11,9 @@ public:
 	SideMenu( const Camera& cam );
 
 	void Update( const Keyboard& kbd,const Mouse& mouse );
-	void Draw( Graphics& gfx ) const;
+	void Draw( const Camera& cam,Graphics& gfx ) const;
+
+	CardHandler& GetCardHandler();
 private:
 	RectI area;
 	RectI cardArea;

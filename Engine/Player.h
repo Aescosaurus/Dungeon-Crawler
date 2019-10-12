@@ -31,6 +31,7 @@ private:
 	const TileMap& tilemap;
 	Camera& cam;
 	SideMenu& menu;
+	CardHandler& cardHandler;
 	Vec2 pos;
 	Vei2 move = { 0,0 };
 	Vei2 target = { 0,0 };

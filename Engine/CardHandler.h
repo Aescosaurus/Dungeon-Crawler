@@ -5,16 +5,33 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Camera.h"
+#include "Timer.h"
 
 class CardHandler
 {
+private:
+	class CardSlot
+	{
+	public:
+		RectI area;
+		bool hovering;
+	};
 public:
 	CardHandler( const RectI& cardArea );
 
 	void Update( const Keyboard& kbd,const Mouse& mouse );
-	void Draw( Graphics& gfx ) const;
+	void Draw( const Camera& cam,Graphics& gfx ) const;
+
+	bool PlaySelectedCard( float dt );
+
+	bool HasSelectedCard() const;
+	Vei2 GetTarget() const;
 private:
 	static constexpr int nCards = 3;
 	static constexpr int padding = 5;
-	std::vector<RectI> cardSlots;
+	std::vector<CardSlot> cardSlots;
+	Vei2 mousePos = { -1,-1 };
+	int selectedCard = -1;
+	Timer playTime = Timer::turnTime;
 };

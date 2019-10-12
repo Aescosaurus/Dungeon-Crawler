@@ -63,5 +63,5 @@ void Game::ComposeFrame()
 	tilemap.Draw( cam );
 	player.Draw( cam );
 
-	menu.Draw( gfx );
+	menu.Draw( cam,gfx );
 }

@@ -9,7 +9,10 @@ class Camera
 public:
 	Camera( Graphics& gfx );
 
+	// Render rect using absolute coordinates.
 	void RenderRect( const Vec2& pos,Color c ) const;
+	// Render rect using screen coordinates.
+	void RenderRectRelative( const Vec2& pos,Color c ) const;
 
 	void CenterOn( const Vec2& pos );
 

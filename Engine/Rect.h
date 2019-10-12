@@ -81,7 +81,7 @@ public:
 
 	constexpr Vec2_<T> GetTopLeft() const
 	{
-		return( Vei2{ left,top } );
+		return( Vec2_<T>{ left,top } );
 	}
 	constexpr Vec2_<T> GetCenter() const
 	{
