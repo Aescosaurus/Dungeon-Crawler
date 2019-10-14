@@ -21,7 +21,7 @@ public:
 	Player( const Vec2& pos,const TileMap& tilemap,
 		Camera& cam,SideMenu& menu );
 
-	bool StartTurn( const Keyboard& kbd,const Mouse& mouse );
+	bool StartTurn( const Keyboard& kbd,Mouse& mouse );
 	bool UpdateTurn( const Mouse& mouse,float dt );
 	bool EndTurn();
 	void Draw( const Camera& cam ) const;
@@ -32,6 +32,7 @@ private:
 	Camera& cam;
 	SideMenu& menu;
 	CardHandler& cardHandler;
+	MessageLog& msgLog;
 	Vec2 pos;
 	Vei2 move = { 0,0 };
 	Vei2 target = { 0,0 };

@@ -7,10 +7,11 @@ Player::Player( const Vec2& pos,const TileMap& tilemap,
 	tilemap( tilemap ),
 	cam( cam ),
 	menu( menu ),
-	cardHandler( menu.GetCardHandler() )
+	cardHandler( menu.GetCardHandler() ),
+	msgLog( menu.GetMessageLog() )
 {}
 
-bool Player::StartTurn( const Keyboard& kbd,const Mouse& mouse )
+bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse )
 {
 	// Move turn.
 	move = { 0,0 };
@@ -31,7 +32,7 @@ bool Player::StartTurn( const Keyboard& kbd,const Mouse& mouse )
 		turn = TurnType::Movement;
 		return( true );
 	}
-	else if( cardHandler.HasSelectedCard() )
+	else if( cardHandler.DoneWithTurn() )
 	{
 		turn = TurnType::Attack;
 		target = cardHandler.GetTarget();
@@ -82,11 +83,13 @@ bool Player::EndTurn()
 	case TurnType::None:
 		break;
 	case TurnType::Movement:
+		msgLog.Log( "Moving!" );
 		pos = target;
 		cam.CenterOn( pos );
 		move = { 0,0 };
 		break;
 	case TurnType::Attack:
+		msgLog.Log( "Attacking!" );
 		// Apply damage to enemy in target square.
 		break;
 	default:

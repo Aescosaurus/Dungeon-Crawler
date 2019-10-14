@@ -17,7 +17,8 @@ CardHandler::CardHandler( const RectI& cardArea )
 	}
 }
 
-void CardHandler::Update( const Keyboard& kbd,const Mouse& mouse )
+void CardHandler::Update( const Camera& cam,
+	const Keyboard& kbd,Mouse& mouse )
 {
 	for( int i = 0; i < nCards; ++i )
 	{
@@ -36,10 +37,23 @@ void CardHandler::Update( const Keyboard& kbd,const Mouse& mouse )
 	{
 		mousePos = mouse.GetPos() / Camera::tileSize;
 
-		if( mouse.LeftIsPressed() )
+		selectedSquare = mousePos;
+
+		bool released = false;
+		while( !mouse.IsEmpty() )
 		{
-			// if card works at this spot
-			//  donewithturn = true
+			if( mouse.Read().GetType() == Mouse::Event::Type::LRelease )
+			{
+				released = true;
+			}
+		}
+
+		if( cam.IsOnScreen( selectedSquare ) &&
+			// !mouse.LeftIsPressed() &&
+			released &&
+			selectedSquare != Vei2{ -1,-1 } )
+		{
+			doneWithTurn = true;
 		}
 	}
 
@@ -57,7 +71,8 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 
 	if( selectedCard != -1 )
 	{
-		cam.RenderRectRelative( Vec2( mousePos ),Colors::White );
+		cam.RenderRect( cam.RelativeToAbsolute(
+			Vec2( mousePos ) ),Colors::White );
 	}
 }
 
@@ -65,12 +80,23 @@ bool CardHandler::PlaySelectedCard( float dt )
 {
 	playTime.Update( dt );
 
+	if( playTime.IsDone() )
+	{
+		selectedCard = -1;
+		doneWithTurn = false;
+	}
+
 	return( playTime.IsDone() );
 }
 
 bool CardHandler::HasSelectedCard() const
 {
 	return( selectedCard != -1 );
+}
+
+bool CardHandler::DoneWithTurn() const
+{
+	return( doneWithTurn );
 }
 
 Vei2 CardHandler::GetTarget() const

@@ -11,12 +11,12 @@ public:
 
 	// Render rect using absolute coordinates.
 	void RenderRect( const Vec2& pos,Color c ) const;
-	// Render rect using screen coordinates.
-	void RenderRectRelative( const Vec2& pos,Color c ) const;
 
 	void CenterOn( const Vec2& pos );
 
 	const Rect& GetViewArea() const;
+	bool IsOnScreen( const Vei2& pos ) const;
+	Vec2 RelativeToAbsolute( const Vec2& rel ) const;
 public:
 	static constexpr int tileSize = 60;
 private:

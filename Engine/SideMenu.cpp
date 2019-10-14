@@ -2,6 +2,7 @@
 
 SideMenu::SideMenu( const Camera& cam )
 	:
+	cam( cam ),
 	area( int( cam.GetViewArea().right ) * Camera::tileSize,
 		Graphics::ScreenWidth,0,Graphics::ScreenHeight ),
 	cardArea( area.left,area.right,area.top + 150,area.top + 350 ),
@@ -10,17 +11,9 @@ SideMenu::SideMenu( const Camera& cam )
 	msgLog( logArea )
 {}
 
-void SideMenu::Update( const Keyboard& kbd,const Mouse& mouse )
+void SideMenu::Update( const Keyboard& kbd,Mouse& mouse )
 {
-	cardHandler.Update( kbd,mouse );
-
-	for( char i = 'A'; i < 'Z'; ++i )
-	{
-		if( kbd.KeyIsPressed( i ) )
-		{
-			msgLog.Log( std::to_string( int( i ) ) );
-		}
-	}
+	cardHandler.Update( cam,kbd,mouse );
 }
 
 void SideMenu::Draw( const Camera& cam,Graphics& gfx ) const
@@ -36,4 +29,9 @@ void SideMenu::Draw( const Camera& cam,Graphics& gfx ) const
 CardHandler& SideMenu::GetCardHandler()
 {
 	return( cardHandler );
+}
+
+MessageLog& SideMenu::GetMessageLog()
+{
+	return( msgLog );
 }
