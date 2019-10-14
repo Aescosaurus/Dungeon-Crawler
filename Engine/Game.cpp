@@ -64,6 +64,4 @@ void Game::ComposeFrame()
 	player.Draw( cam );
 
 	menu.Draw( cam,gfx );
-
-	unluckyPixel.DrawText( "test\nblahhh\nWWWW",Vei2{ 350,50 },gfx );
 }

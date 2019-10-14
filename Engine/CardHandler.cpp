@@ -1,6 +1,6 @@
 #include "CardHandler.h"
 
-CardHandler::CardHandler( const RectI& cardArea)
+CardHandler::CardHandler( const RectI& cardArea )
 {
 	const auto width = cardArea.GetWidth();
 	const auto height = cardArea.GetHeight() / 3;

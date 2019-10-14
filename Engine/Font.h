@@ -26,19 +26,19 @@ public:
 			}
 		}
 
-		static constexpr int expandSize = 2;
-		fontSheet = fontSheet.GetExpandedBy( Vei2{
-			expandSize,expandSize } );
-		for( auto& rect : glyphRects )
-		{
-			rect.left *= expandSize;
-			rect.right *= expandSize;
-			rect.bottom *= expandSize;
-		}
+		// static constexpr int expandSize = 2;
+		// fontSheet = fontSheet.GetExpandedBy( Vei2{
+		// 	expandSize,expandSize } );
+		// for( auto& rect : glyphRects )
+		// {
+		// 	rect.left *= expandSize;
+		// 	rect.right *= expandSize;
+		// 	rect.bottom *= expandSize;
+		// }
 	}
 
 	void DrawText( const std::string& text,
-		const Vei2& loc,Graphics& gfx )
+		const Vei2& loc,Graphics& gfx ) const
 	{
 		Vei2 drawPos = loc;
 		for( auto c : text )
