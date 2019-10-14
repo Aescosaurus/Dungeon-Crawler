@@ -25,6 +25,7 @@
 #include "ChiliException.h"
 #include "Colors.h"
 #include "Rect.h"
+#include "Surface.h"
 
 class Graphics
 {
@@ -62,6 +63,31 @@ public:
 	void DrawRectDim( int x1,int y1,int x2,int y2,Color c );
 	void DrawRectDim( const RectI& rect,Color c );
 	void DrawRectSafe( int x,int y,int width,int height,Color c );
+	template<typename Effect>
+	void DrawSprite( int x,int y,const Surface& spr,
+		const RectI& srcRect,Effect eff )
+	{
+		assert( srcRect.left >= 0 );
+		assert( srcRect.right <= spr.GetWidth() );
+		assert( srcRect.top >= 0 );
+		assert( srcRect.bottom <= spr.GetHeight() );
+		assert( srcRect.left < srcRect.right );
+		assert( srcRect.top < srcRect.bottom );
+
+		for( int sy = srcRect.top; sy < srcRect.bottom; ++sy )
+		{
+			for( int sx = srcRect.left; sx < srcRect.right; ++sx )
+			{
+				// PutPixel( x + sx - srcRect.left,
+				// 	y + sy - srcRect.top,
+				// 	spr.GetPixel( sx,sy ) );
+				eff( spr.GetPixel( sx,sy ),
+					x + sx - srcRect.left,
+					y + sy - srcRect.top,
+					*this );
+			}
+		}
+	}
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

@@ -30,6 +30,8 @@
 #include "FrameTimer.h"
 #include "SideMenu.h"
 
+#include "Font.h"
+
 class Game
 {
 private:
@@ -62,5 +64,6 @@ private:
 	Player player;
 	State gameState = State::PlayerStart;
 	FrameTimer ft;
+	Font unluckyPixel = "Fonts/UnluckyPixel.bmp";
 	/********************************/
 };

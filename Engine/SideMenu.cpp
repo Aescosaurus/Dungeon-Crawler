@@ -1,5 +1,7 @@
 #include "SideMenu.h"
 
+std::vector<std::string> SideMenu::messageLog;
+
 SideMenu::SideMenu( const Camera& cam )
 	:
 	area( int( cam.GetViewArea().right ) * Camera::tileSize,
@@ -20,6 +22,11 @@ void SideMenu::Draw( const Camera& cam,Graphics& gfx ) const
 		Colors::Gray );
 
 	cardHandler.Draw( cam,gfx );
+}
+
+void SideMenu::LogMessage( const std::string& message )
+{
+
 }
 
 CardHandler& SideMenu::GetCardHandler()
