@@ -26,6 +26,7 @@ public:
 
 	bool PlaySelectedCard( float dt );
 	void EndTurn();
+	void DeselectCard();
 
 	bool HasSelectedCard() const;
 	bool DoneWithTurn() const;

@@ -46,6 +46,11 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse )
 
 bool Player::UpdateTurn( const Mouse& mouse,float dt )
 {
+	if( turn != TurnType::Attack )
+	{
+		cardHandler.DeselectCard();
+	}
+
 	switch( turn )
 	{
 	case TurnType::None:

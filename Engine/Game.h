@@ -37,8 +37,10 @@ private:
 	{
 		PlayerStart,
 		PlayerTurn,
-		PlayerEnd
-		// enemy start, enemy end, etc.
+		PlayerEnd,
+		EnemyStart,
+		EnemyTurn,
+		EnemyEnd
 	};
 public:
 	Game( class MainWindow& wnd );
@@ -62,5 +64,7 @@ private:
 	Player player;
 	State gameState = State::PlayerStart;
 	FrameTimer ft;
+	// std::vector<std::unique_ptr<Enemy>> enemies;
+	// std::vector<std::unique_ptr<Enemy>>::iterator curEnemy;
 	/********************************/
 };

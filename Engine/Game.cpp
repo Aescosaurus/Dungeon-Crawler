@@ -53,8 +53,23 @@ void Game::UpdateModel()
 		if( player.UpdateTurn( wnd.mouse,dt ) ) gameState = State::PlayerEnd;
 		break;
 	case State::PlayerEnd:
-		if( player.EndTurn() ) gameState = State::PlayerStart;
+		if( player.EndTurn() )
+		{
+			gameState = State::EnemyStart;
+			// curEnemy = enemies.begin();
+		}
 		break;
+	case State::EnemyStart:
+		// if curEnemy.StartTurn
+		gameState = State::EnemyTurn;
+		break;
+	case State::EnemyTurn:
+		gameState = State::EnemyEnd;
+		break;
+	case State::EnemyEnd:
+		// ++curEnemy;
+		// if curEnemy == enemies.end
+		gameState = State::PlayerStart;
 	}
 }
 

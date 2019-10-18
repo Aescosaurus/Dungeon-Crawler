@@ -119,6 +119,11 @@ void CardHandler::EndTurn()
 	selectedCard = -1;
 }
 
+void CardHandler::DeselectCard()
+{
+	selectedCard = -1;
+}
+
 bool CardHandler::HasSelectedCard() const
 {
 	return( selectedCard != -1 );
