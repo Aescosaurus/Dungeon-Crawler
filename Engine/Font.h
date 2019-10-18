@@ -38,7 +38,7 @@ public:
 	}
 
 	void DrawText( const std::string& text,
-		const Vei2& loc,Graphics& gfx ) const
+		const Vei2& loc,Color textCol,Graphics& gfx ) const
 	{
 		Vei2 drawPos = loc;
 		for( auto c : text )
@@ -50,16 +50,33 @@ public:
 			}
 			else
 			{
-				const int glyphIndex = c - ' ';
-				const auto& glyphRect = glyphRects[glyphIndex];
+				const auto& glyphRect = GetGlyphRect( c );
 
 				gfx.DrawSprite( drawPos.x,drawPos.y,
 					fontSheet,glyphRect,SpriteEffect::Substitution{
-						Colors::White,Colors::Black1 } );
+						Colors::White,textCol } );
 
 				drawPos.x += glyphRect.GetWidth();
 			}
 		}
+	}
+
+	int CalculateTextWidth( const std::string& text ) const
+	{
+		int width = 0;
+		for( char c : text )
+		{
+			const auto& glyphRect = GetGlyphRect( c );
+			width += glyphRect.GetWidth();
+		}
+		return( width );
+	}
+private:
+	const RectI& GetGlyphRect( char c ) const
+	{
+		const int glyphIndex = c - ' ';
+		const auto& glyphRect = glyphRects[glyphIndex];
+		return( glyphRect );
 	}
 private:
 	Surface fontSheet;

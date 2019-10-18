@@ -89,13 +89,29 @@ public:
 		const auto len = GetLength();
 		return( *this / len );
 	}
-	Vec2_ X() const
+	constexpr Vec2_ X() const
 	{
 		return( Vec2_<T>{ x,T( 0.0 ) } );
 	}
-	Vec2_ Y() const
+	constexpr Vec2_ Y() const
 	{
 		return( Vec2_<T>{ T( 0.0 ),y } );
+	}
+	static constexpr Vec2_ Up()
+	{
+		return( Vec2_<T>{ T( 0.0 ),T( -1.0 ) } );
+	}
+	static constexpr Vec2_ Down()
+	{
+		return( Vec2_<T>{ T( 0.0 ),T( 1.0 ) } );
+	}
+	static constexpr Vec2_ Left()
+	{
+		return( Vec2_<T>{ T( -1.0 ),T( 0.0 ) } );
+	}
+	static constexpr Vec2_ Right()
+	{
+		return( Vec2_<T>{ T( 1.0 ),T( 0.0 ) } );
 	}
 public:
 	T x;
