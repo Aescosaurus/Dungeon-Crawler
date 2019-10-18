@@ -35,7 +35,7 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse )
 	else if( cardHandler.DoneWithTurn() )
 	{
 		turn = TurnType::Attack;
-		target = cardHandler.GetTarget();
+		// target = cardHandler.GetTarget();
 		return( true );
 	}
 	else
@@ -90,7 +90,7 @@ bool Player::EndTurn()
 		break;
 	case TurnType::Attack:
 		msgLog.Log( "Attacking!" );
-		// Apply damage to enemy in target square.
+		cardHandler.EndTurn();
 		break;
 	default:
 		assert( false );

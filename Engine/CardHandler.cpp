@@ -27,7 +27,7 @@ void CardHandler::Update( const Camera& cam,
 		curCard.hovering = curCard.area.ContainsPoint( mouse.GetPos() );
 
 		if( ( curCard.hovering && mouse.LeftIsPressed() ) ||
-			kbd.KeyIsPressed( i ) )
+			kbd.KeyIsPressed( char( ( i + 1 ) + '0' ) ) )
 		{
 			selectedCard = i;
 		}
@@ -35,9 +35,7 @@ void CardHandler::Update( const Camera& cam,
 
 	if( selectedCard != -1 )
 	{
-		mousePos = mouse.GetPos() / Camera::tileSize;
-
-		selectedSquare = mousePos;
+		selectedSquare = mouse.GetPos() / Camera::tileSize;
 
 		bool released = false;
 		while( !mouse.IsEmpty() )
@@ -58,21 +56,46 @@ void CardHandler::Update( const Camera& cam,
 	}
 
 	playTime.Reset();
+
+	mousePos = mouse.GetPos();
 }
 
 void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 {
-	for( const auto& slot : cardSlots )
+	// for( const auto& slot : cardSlots )
+	for( int i = 0; i < int( cardSlots.size() ); ++i )
 	{
-		gfx.DrawRectDim( slot.area,slot.hovering
-			? Colors::White1
-			: Colors::LightGray1 );
+		const auto& slot = cardSlots[i];
+
+		if( selectedCard != i )
+		{
+			gfx.DrawRectDim( slot.area,
+				slot.hovering
+				? Colors::White1
+				: Colors::LightGray1 );
+		}
+		else
+		{
+			gfx.DrawRectDim( slot.area,
+				Colors::Gray1 );
+		}
 	}
 
 	if( selectedCard != -1 )
 	{
-		cam.RenderRect( cam.RelativeToAbsolute(
-			Vec2( mousePos ) ),Colors::White1 );
+		// cam.RenderRect( cam.RelativeToAbsolute(
+		// 	Vec2( mousePos ) ),Colors::White1 );
+
+		const auto& curCard = cardSlots[selectedCard];
+
+		// gfx.DrawRectDim( curCard.area.GetMovedBy( mousePos ),
+		// 	Colors::White1 );
+		const int width = curCard.area.GetWidth();
+		const int height = curCard.area.GetHeight();
+		gfx.DrawRectSafe( mousePos.x - width / 2,
+			mousePos.y - height / 2,
+			width,height,
+			Colors::White1 );
 	}
 }
 
@@ -82,11 +105,18 @@ bool CardHandler::PlaySelectedCard( float dt )
 
 	if( playTime.IsDone() )
 	{
-		selectedCard = -1;
+		// selectedCard = -1;
 		doneWithTurn = false;
 	}
 
 	return( playTime.IsDone() );
+}
+
+void CardHandler::EndTurn()
+{
+	// Deal damage to enemy.
+
+	selectedCard = -1;
 }
 
 bool CardHandler::HasSelectedCard() const
@@ -97,9 +127,4 @@ bool CardHandler::HasSelectedCard() const
 bool CardHandler::DoneWithTurn() const
 {
 	return( doneWithTurn );
-}
-
-Vei2 CardHandler::GetTarget() const
-{
-	return( mousePos );
 }

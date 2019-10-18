@@ -25,10 +25,10 @@ public:
 	void Draw( const Camera& cam,Graphics& gfx ) const;
 
 	bool PlaySelectedCard( float dt );
+	void EndTurn();
 
 	bool HasSelectedCard() const;
 	bool DoneWithTurn() const;
-	Vei2 GetTarget() const;
 private:
 	static constexpr int nCards = 3;
 	static constexpr int padding = 5;

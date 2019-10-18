@@ -99,6 +99,18 @@ public:
 	{
 		return( Vec2_<T>{ GetWidth(),GetHeight() } );
 	}
+	constexpr Rect_<T> GetMovedTo( const Vec2_<T>& loc ) const
+	{
+		Rect_<T> temp = *this;
+		temp.MoveTo( loc );
+		return( temp );
+	}
+	constexpr Rect_<T> GetMovedBy( const Vec2_<T>& amount ) const
+	{
+		Rect_<T> temp = *this;
+		temp.MoveBy( amount );
+		return( temp );
+	}
 public:
 	T left;
 	T right;

@@ -16,4 +16,5 @@ public:
 private:
 	std::string name;
 	int damage;
+	int range;
 };
