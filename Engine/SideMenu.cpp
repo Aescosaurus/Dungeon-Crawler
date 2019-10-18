@@ -20,7 +20,7 @@ void SideMenu::Draw( const Camera& cam,Graphics& gfx ) const
 {
 	gfx.DrawRectDim( area.left,area.top,
 		area.right,area.bottom,
-		Colors::Gray );
+		Colors::Gray2 );
 
 	cardHandler.Draw( cam,gfx );
 	msgLog.Draw( gfx );

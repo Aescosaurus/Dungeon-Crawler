@@ -102,7 +102,7 @@ bool Player::EndTurn()
 
 void Player::Draw( const Camera& cam ) const
 {
-	cam.RenderRect( pos,Colors::Blue );
+	cam.RenderRect( pos,Colors::Blue1 );
 }
 
 const Vec2& Player::GetPos() const

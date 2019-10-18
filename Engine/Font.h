@@ -18,7 +18,7 @@ public:
 		glyphRects.emplace_back( RectI{ 0,0,0,rowHeight } );
 		for( int x = 0; x < fontSheet.GetWidth(); ++x )
 		{
-			if( fontSheet.GetPixel( x,0 ) == Colors::Red )
+			if( fontSheet.GetPixel( x,0 ) == Colors::Magenta )
 			{
 				glyphRects.back().right = x - 1;
 				glyphRects.emplace_back( RectI{
@@ -55,7 +55,7 @@ public:
 
 				gfx.DrawSprite( drawPos.x,drawPos.y,
 					fontSheet,glyphRect,SpriteEffect::Substitution{
-						Colors::White,Colors::Black } );
+						Colors::White,Colors::Black1 } );
 
 				drawPos.x += glyphRect.GetWidth();
 			}

@@ -137,12 +137,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Card.h" />
     <ClInclude Include="CardHandler.h" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
     <ClInclude Include="Codex.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
+    <ClInclude Include="Deck.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FrameTimer.h" />

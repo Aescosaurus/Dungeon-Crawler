@@ -18,7 +18,7 @@ void TileMap::Draw( const Camera& cam ) const
 		for( int x = viewArea.left - 1; x < viewArea.right + 1; ++x )
 		{
 			const auto col = ( GetTile( x,y ) == TileType::Wall )
-				? Colors::Red : Colors::Yellow;
+				? Colors::Orange3 : Colors::Orange1;
 			cam.RenderRect( Vec2( Vei2{ x,y } ),col );
 		}
 	}

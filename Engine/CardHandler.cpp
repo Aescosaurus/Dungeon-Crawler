@@ -65,14 +65,14 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 	for( const auto& slot : cardSlots )
 	{
 		gfx.DrawRectDim( slot.area,slot.hovering
-			? Colors::White
-			: Colors::LightGray );
+			? Colors::White1
+			: Colors::LightGray1 );
 	}
 
 	if( selectedCard != -1 )
 	{
 		cam.RenderRect( cam.RelativeToAbsolute(
-			Vec2( mousePos ) ),Colors::White );
+			Vec2( mousePos ) ),Colors::White1 );
 	}
 }
 
