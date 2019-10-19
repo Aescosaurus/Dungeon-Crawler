@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BasicStrike.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardHandler.h" />

@@ -2,10 +2,11 @@
 
 void Card::Draw( const RectI& area,Graphics& gfx ) const
 {
-	unluckyPixel->DrawText( name,area.GetTopLeft() +
+	std::string info = name + "\nDamage: " +
+		std::to_string( damage ) + "%\nRange: " +
+		std::to_string( range );
+	unluckyPixel->DrawText( info,area.GetTopLeft() +
 		Vei2{ padding,padding },textCol,gfx );
-
-
 }
 
 Card::Card( const std::string& name,int damage,int range,
@@ -22,7 +23,7 @@ Color Card::Type2Color( Type t )
 {
 	static constexpr Color colors[] =
 	{
-		Colors::LightGray1,
+		Colors::Gray1,
 		Colors::Orange1,
 		Colors::Green1,
 		Colors::Blue1,

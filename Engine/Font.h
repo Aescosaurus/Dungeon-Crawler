@@ -61,6 +61,13 @@ public:
 		}
 	}
 
+	void DrawTextBold( const std::string& text,
+		const Vei2& loc,Color textCol,Graphics& gfx )
+	{
+		DrawText( text,loc,textCol,gfx );
+		DrawText( text,loc + Vei2::Right(),textCol,gfx );
+	}
+
 	int CalculateTextWidth( const std::string& text ) const
 	{
 		int width = 0;

@@ -7,6 +7,7 @@
 #include "Graphics.h"
 #include "Camera.h"
 #include "Timer.h"
+#include "Deck.h"
 
 class CardHandler
 {
@@ -39,4 +40,5 @@ private:
 	Timer playTime = Timer::turnTime;
 	Vei2 selectedSquare = { -1,-1 };
 	bool doneWithTurn = false;
+	Deck deck;
 };

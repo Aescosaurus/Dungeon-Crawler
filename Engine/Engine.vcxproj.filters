@@ -114,6 +114,9 @@
     <ClInclude Include="Card.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BasicStrike.h">
+      <Filter>Header Files\Cards</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">

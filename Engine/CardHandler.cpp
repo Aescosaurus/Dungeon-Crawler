@@ -1,6 +1,8 @@
 #include "CardHandler.h"
 
 CardHandler::CardHandler( const RectI& cardArea )
+	:
+	deck( nCards )
 {
 	const auto width = cardArea.GetWidth();
 	const auto height = cardArea.GetHeight() / 3;
@@ -73,6 +75,7 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 				slot.hovering
 				? Colors::White1
 				: Colors::LightGray1 );
+			deck.GetCard( i ).Draw( slot.area,gfx );
 		}
 		else
 		{
@@ -96,6 +99,9 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 			mousePos.y - height / 2,
 			width,height,
 			Colors::White1 );
+		deck.GetCard( selectedCard ).Draw( RectI{
+			Vei2{ mousePos.x - width / 2,
+			mousePos.y - height / 2 },width,height },gfx );
 	}
 }
 

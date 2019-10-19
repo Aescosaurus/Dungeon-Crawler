@@ -18,6 +18,10 @@ public:
 public:
 	void Draw( const RectI& area,Graphics& gfx ) const;
 protected:
+	// Name: Name of the card.
+	// Damage: Damage, as percent of attack (0=0%,100=100%).
+	// Range: Range, in tiles.
+	// Type: What type of card is it.
 	Card( const std::string& name,int damage,int range,
 		Type type );
 private:
