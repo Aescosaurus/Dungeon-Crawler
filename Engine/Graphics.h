@@ -65,22 +65,52 @@ public:
 	void DrawRectSafe( int x,int y,int width,int height,Color c );
 	template<typename Effect>
 	void DrawSprite( int x,int y,const Surface& spr,
+		Effect eff )
+	{
+		DrawSprite( x,y,spr,spr.GetRect(),eff );
+	}
+	template<typename Effect>
+	void DrawSprite( int x,int y,const Surface& spr,
 		const RectI& srcRect,Effect eff )
+	{
+		DrawSprite( x,y,spr,srcRect,GetScreenRect(),eff );
+	}
+	template<typename Effect>
+	void DrawSprite( int x,int y,const Surface& spr,
+		RectI srcRect,const RectI& clip,Effect eff )
 	{
 		assert( srcRect.left >= 0 );
 		assert( srcRect.right <= spr.GetWidth() );
 		assert( srcRect.top >= 0 );
 		assert( srcRect.bottom <= spr.GetHeight() );
+
 		assert( srcRect.left < srcRect.right );
 		assert( srcRect.top < srcRect.bottom );
+
+		// Sprite clipping.
+		if( x < clip.left )
+		{
+			srcRect.left += clip.left - x;
+			x = clip.left;
+		}
+		if( y < clip.top )
+		{
+			srcRect.top += clip.top - y;
+			y = clip.top;
+		}
+		if( x + srcRect.GetWidth() > clip.right )
+		{
+			srcRect.right -= x + srcRect.GetWidth() - clip.right;
+		}
+		if( y + srcRect.GetHeight() > clip.bottom )
+		{
+			srcRect.bottom -= y + srcRect.GetHeight() - clip.bottom;
+		}
 
 		for( int sy = srcRect.top; sy < srcRect.bottom; ++sy )
 		{
 			for( int sx = srcRect.left; sx < srcRect.right; ++sx )
 			{
-				// PutPixel( x + sx - srcRect.left,
-				// 	y + sy - srcRect.top,
-				// 	spr.GetPixel( sx,sy ) );
 				eff( spr.GetPixel( sx,sy ),
 					x + sx - srcRect.left,
 					y + sy - srcRect.top,
@@ -104,6 +134,7 @@ private:
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Color*                                              pSysBuffer = nullptr;
 public:
+	static RectI GetScreenRect();
 	static constexpr int ScreenWidth = 1920 / 2;
 	static constexpr int ScreenHeight = 1080 / 2;
 };

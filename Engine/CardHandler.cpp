@@ -11,9 +11,9 @@ CardHandler::CardHandler( const RectI& cardArea )
 	for( int i = 0; i < nCards; ++i )
 	{
 		CardSlot temp;
-		temp.area = RectI{ Vei2{ cardArea.left + padding / 2,
-			cardArea.top + i * height + padding / 2 },
-			width - padding,height - padding };
+		temp.area = RectI{ Vei2{ cardArea.left + padding,
+			cardArea.top + i * ( height + padding / 2 ) },
+			width - padding * 2,height - padding };
 		temp.hovering = false;
 		cardSlots.emplace_back( temp );
 	}

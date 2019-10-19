@@ -5,7 +5,7 @@ SideMenu::SideMenu( const Camera& cam )
 	cam( cam ),
 	area( int( cam.GetViewArea().right ) * Camera::tileSize,
 		Graphics::ScreenWidth,0,Graphics::ScreenHeight ),
-	cardArea( area.left,area.right,area.top + 150,area.top + 350 ),
+	cardArea( area.left,area.right,area.top + 120,area.top + 346 ),
 	logArea( area.left,area.right,area.top + 350,area.bottom ),
 	cardHandler( cardArea ),
 	msgLog( logArea )

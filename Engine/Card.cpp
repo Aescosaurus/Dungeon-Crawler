@@ -1,4 +1,5 @@
 #include "Card.h"
+#include "SpriteEffect.h"
 
 void Card::Draw( const RectI& area,Graphics& gfx ) const
 {
@@ -7,16 +8,20 @@ void Card::Draw( const RectI& area,Graphics& gfx ) const
 		std::to_string( range );
 	unluckyPixel->DrawText( info,area.GetTopLeft() +
 		Vei2{ padding,padding },textCol,gfx );
+
+	gfx.DrawSprite( area.right - img->GetWidth() - padding,
+		area.top + padding,*img,SpriteEffect::Chroma{} );
 }
 
 Card::Card( const std::string& name,int damage,int range,
-	Type type )
+	Type type,const std::string& imgSrc )
 	:
 	name( name ),
 	damage( damage ),
 	range( range ),
 	type( type ),
-	textCol( Type2Color( type ) )
+	textCol( Type2Color( type ) ),
+	img( SurfCodex::Fetch( imgSrc ) )
 {}
 
 Color Card::Type2Color( Type t )

@@ -22,8 +22,9 @@ protected:
 	// Damage: Damage, as percent of attack (0=0%,100=100%).
 	// Range: Range, in tiles.
 	// Type: What type of card is it.
+	// ImgSrc: Path to icon.
 	Card( const std::string& name,int damage,int range,
-		Type type );
+		Type type,const std::string& imgSrc );
 private:
 	Color Type2Color( Type t );
 private:
@@ -34,4 +35,5 @@ private:
 	int range;
 	Type type;
 	Color textCol;
+	CSurfPtr img;
 };

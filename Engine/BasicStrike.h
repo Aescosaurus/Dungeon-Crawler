@@ -9,6 +9,7 @@ class BasicStrike
 public:
 	BasicStrike()
 		:
-		Card( "Basic Strike",50,1,Card::Type::Typeless )
+		Card( "Basic Strike",50,1,Card::Type::Typeless,
+			"Images/Cards/BasicStrike.bmp" )
 	{}
 };
