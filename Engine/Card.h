@@ -17,6 +17,11 @@ public:
 	};
 public:
 	void Draw( const RectI& area,Graphics& gfx ) const;
+
+	void Discard();
+	void Reset();
+
+	bool IsDiscarded() const;
 protected:
 	// Name: Name of the card.
 	// Damage: Damage, as percent of attack (0=0%,100=100%).
@@ -36,4 +41,5 @@ private:
 	Type type;
 	Color textCol;
 	CSurfPtr img;
+	bool discarded = false;
 };

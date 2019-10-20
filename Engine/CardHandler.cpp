@@ -31,7 +31,10 @@ void CardHandler::Update( const Camera& cam,
 		if( ( curCard.hovering && mouse.LeftIsPressed() ) ||
 			kbd.KeyIsPressed( char( ( i + 1 ) + '0' ) ) )
 		{
-			selectedCard = i;
+			if( deck.CardExists( i ) )
+			{
+				selectedCard = i;
+			}
 		}
 	}
 
@@ -68,14 +71,16 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 	for( int i = 0; i < int( cardSlots.size() ); ++i )
 	{
 		const auto& slot = cardSlots[i];
+		const auto& card = deck.GetCard( i );
 
-		if( selectedCard != i )
+		if( i != selectedCard &&
+			card != nullptr )
 		{
 			gfx.DrawRectDim( slot.area,
 				slot.hovering
 				? Colors::White1
 				: Colors::LightGray1 );
-			deck.GetCard( i ).Draw( slot.area,gfx );
+			card->Draw( slot.area,gfx );
 		}
 		else
 		{
@@ -86,6 +91,7 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 
 	if( selectedCard != -1 )
 	{
+		assert( deck.CardExists( selectedCard ) );
 		// cam.RenderRect( cam.RelativeToAbsolute(
 		// 	Vec2( mousePos ) ),Colors::White1 );
 
@@ -99,7 +105,7 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 			mousePos.y - height / 2,
 			width,height,
 			Colors::White1 );
-		deck.GetCard( selectedCard ).Draw( RectI{
+		deck.GetCard( selectedCard )->Draw( RectI{
 			Vei2{ mousePos.x - width / 2,
 			mousePos.y - height / 2 },width,height },gfx );
 	}
@@ -120,7 +126,9 @@ bool CardHandler::PlaySelectedCard( float dt )
 
 void CardHandler::EndTurn()
 {
-	// Deal damage to enemy.
+	deck.Discard( selectedCard );
+
+	// TODO: Deal damage to enemy.
 
 	selectedCard = -1;
 }

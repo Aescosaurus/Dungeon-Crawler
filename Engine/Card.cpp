@@ -13,6 +13,21 @@ void Card::Draw( const RectI& area,Graphics& gfx ) const
 		area.top + padding,*img,SpriteEffect::Chroma{} );
 }
 
+void Card::Discard()
+{
+	discarded = true;
+}
+
+void Card::Reset()
+{
+	discarded = false;
+}
+
+bool Card::IsDiscarded() const
+{
+	return( discarded );
+}
+
 Card::Card( const std::string& name,int damage,int range,
 	Type type,const std::string& imgSrc )
 	:

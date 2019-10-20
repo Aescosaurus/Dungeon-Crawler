@@ -29,12 +29,40 @@ public:
 	{
 		cards.emplace_back( c );
 	}
-
-	const Card& GetCard( int slot ) const
+	void Discard( int card )
 	{
+		assert( card >= 0 );
+		assert( card < nCards );
+
+		cards[hand[card]]->Discard();
+		hand[card] = -1;
+		for( int i = 0; i < int( cards.size() ); ++i )
+		{
+			for( int j = 0; j < int( hand.size() ); ++j )
+			{
+				if( !cards[i]->IsDiscarded() &&
+					!hand[j] == i )
+				{
+					hand[card] = i;
+				}
+			}
+		}
+	}
+
+	const Card* const GetCard( int slot ) const
+	{
+		assert( slot >= 0 );
 		assert( slot < nCards );
 
-		return( *cards[hand[slot]] );
+		if( hand[slot] == -1 ) return( nullptr );
+		else return( cards[hand[slot]].get() );
+	}
+	bool CardExists( int slot ) const
+	{
+		assert( slot >= 0 );
+		assert( slot < nCards );
+
+		return( hand[slot] != -1 );
 	}
 private:
 	std::vector<std::unique_ptr<Card>> cards;
