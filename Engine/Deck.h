@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include "Card.h"
+#include <algorithm>
 
 #include "BasicStrike.h"
 
@@ -18,7 +19,7 @@ public:
 			hand.emplace_back( i );
 		}
 
-		for( int i = 0; i < 3; ++i )
+		for( int i = 0; i < 4; ++i )
 		{
 			AddCard( new BasicStrike );
 		}
@@ -38,14 +39,20 @@ public:
 		hand[card] = -1;
 		for( int i = 0; i < int( cards.size() ); ++i )
 		{
-			for( int j = 0; j < int( hand.size() ); ++j )
+			if( !cards[i]->IsDiscarded() &&
+				std::find( hand.begin(),hand.end(),i ) ==
+				hand.end() )
 			{
-				if( !cards[i]->IsDiscarded() &&
-					!hand[j] == i )
-				{
-					hand[card] = i;
-				}
+				hand[card] = i;
 			}
+			// for( int j = 0; j < int( hand.size() ); ++j )
+			// {
+			// 	if( !cards[i]->IsDiscarded() &&
+			// 		i != hand[j] )
+			// 	{
+			// 		hand[card] = i;
+			// 	}
+			// }
 		}
 	}
 
