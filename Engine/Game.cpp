@@ -70,7 +70,7 @@ void Game::UpdateModel()
 		break;
 	case State::EnemyStart:
 	{
-		EnemyUpdateInfo euInfo{ tilemap,player,dt };
+		EnemyUpdateInfo euInfo{ tilemap,player,enemies,dt };
 		if( ( *curEnemy )->StartTurn( euInfo ) )
 		{
 			gameState = State::EnemyTurn;

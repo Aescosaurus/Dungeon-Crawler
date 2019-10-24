@@ -61,9 +61,35 @@ const Vec2& Enemy::GetPos() const
 	return( pos );
 }
 
-void Enemy::Move( const Vei2& dir )
+bool Enemy::Move( const Vei2& dir,EnemyUpdateInfo& info )
 {
 	assert( dir.x == 0 || dir.y == 0 );
-	target = Vei2( pos ) + dir;
-	move = dir;
+	bool canMove = true;
+	if( info.player.GetPos() == pos + Vec2( dir ) )
+	{
+		canMove = false;
+	}
+	if( canMove )
+	{
+		for( const auto& enemy : info.enemies )
+		{
+			if( enemy->GetPos() == pos + Vec2( dir ) )
+			{
+				canMove = false;
+				break;
+			}
+		}
+	}
+	
+	if( canMove )
+	{
+		target = Vei2( pos ) + dir;
+		move = dir;
+		action = TurnType::Move;
+		return( true );
+	}
+	else
+	{
+		return( false );
+	}
 }

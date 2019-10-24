@@ -5,12 +5,14 @@
 #include "TileMap.h"
 #include "Timer.h"
 #include "Player.h"
+#include <memory>
 
 class EnemyUpdateInfo
 {
 public:
 	const TileMap& tilemap;
 	Player& player;
+	const std::vector<std::unique_ptr<Enemy>>& enemies;
 	float dt;
 };
 
@@ -33,7 +35,7 @@ public:
 
 	const Vec2& GetPos() const;
 protected:
-	void Move( const Vei2& dir );
+	bool Move( const Vei2& dir,EnemyUpdateInfo& info );
 protected:
 	TurnType action = TurnType::None;
 	Vec2 pos;

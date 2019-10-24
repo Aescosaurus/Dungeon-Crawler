@@ -32,9 +32,14 @@ public:
 		}
 		while( info.tilemap.GetTile( Vei2( pos + move ) ) ==
 			TileMap::TileType::Wall );
-		action = TurnType::Move;
-		Enemy::Move( move );
-		return( true );
+		if( Enemy::Move( move,info ) )
+		{
+			return( true );
+		}
+		else
+		{
+			return( false );
+		}
 	}
 private:
 };
