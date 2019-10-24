@@ -1,4 +1,6 @@
 #include "Player.h"
+#include <algorithm>
+#include "Enemy.h"
 
 Player::Player( const Vec2& pos,const TileMap& tilemap,
 	Camera& cam,SideMenu& menu )
@@ -11,7 +13,8 @@ Player::Player( const Vec2& pos,const TileMap& tilemap,
 	msgLog( menu.GetMessageLog() )
 {}
 
-bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse )
+bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
+	const std::vector<std::unique_ptr<Enemy>>& enemies )
 {
 	// Move turn.
 	move = { 0,0 };
@@ -24,9 +27,13 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse )
 	menu.Update( kbd,mouse );
 
 	if( ( move.x != 0 || move.y != 0 ) &&
-		tilemap.GetTile( int( pos.x ) + move.x,
-		int( pos.y ) + move.y ) ==
-		TileMap::TileType::Floor )
+		tilemap.GetTile( Vei2( pos ) + move ) ==
+		TileMap::TileType::Floor &&
+		std::find_if( enemies.begin(),enemies.end(),[&]
+		( const std::unique_ptr<Enemy>& curEnemy )
+	{
+		return( curEnemy->GetPos() == pos + move );
+	} ) == enemies.end() )
 	{
 		target = Vei2( pos ) + move;
 		turn = TurnType::Movement;
@@ -36,6 +43,11 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse )
 	{
 		turn = TurnType::Attack;
 		// target = cardHandler.GetTarget();
+		return( true );
+	}
+	else if( kbd.KeyIsPressed( VK_SPACE ) )
+	{
+		turn = TurnType::None;
 		return( true );
 	}
 	else

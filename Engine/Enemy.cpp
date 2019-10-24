@@ -56,6 +56,11 @@ void Enemy::Draw( const Camera& cam ) const
 	cam.RenderRect( pos,c );
 }
 
+const Vec2& Enemy::GetPos() const
+{
+	return( pos );
+}
+
 void Enemy::Move( const Vei2& dir )
 {
 	assert( dir.x == 0 || dir.y == 0 );

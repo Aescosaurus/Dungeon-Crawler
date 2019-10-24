@@ -4,11 +4,13 @@
 #include "Camera.h"
 #include "TileMap.h"
 #include "Timer.h"
+#include "Player.h"
 
 class EnemyUpdateInfo
 {
 public:
-	TileMap& tilemap;
+	const TileMap& tilemap;
+	Player& player;
 	float dt;
 };
 
@@ -28,6 +30,8 @@ public:
 	bool UpdateTurn( float dt );
 	bool EndTurn();
 	void Draw( const Camera& cam ) const;
+
+	const Vec2& GetPos() const;
 protected:
 	void Move( const Vei2& dir );
 protected:

@@ -21,7 +21,8 @@ public:
 	Player( const Vec2& pos,const TileMap& tilemap,
 		Camera& cam,SideMenu& menu );
 
-	bool StartTurn( const Keyboard& kbd,Mouse& mouse );
+	bool StartTurn( const Keyboard& kbd,Mouse& mouse,
+		const std::vector<std::unique_ptr<class Enemy>>& enemies );
 	bool UpdateTurn( const Mouse& mouse,float dt );
 	bool EndTurn();
 	void Draw( const Camera& cam ) const;

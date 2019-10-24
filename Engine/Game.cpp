@@ -50,10 +50,16 @@ void Game::UpdateModel()
 	switch( gameState )
 	{
 	case State::PlayerStart:
-		if( player.StartTurn( wnd.kbd,wnd.mouse ) ) gameState = State::PlayerTurn;
+		if( player.StartTurn( wnd.kbd,wnd.mouse,enemies ) )
+		{
+			gameState = State::PlayerTurn;
+		}
 		break;
 	case State::PlayerTurn:
-		if( player.UpdateTurn( wnd.mouse,dt ) ) gameState = State::PlayerEnd;
+		if( player.UpdateTurn( wnd.mouse,dt ) )
+		{
+			gameState = State::PlayerEnd;
+		}
 		break;
 	case State::PlayerEnd:
 		if( player.EndTurn() )
@@ -64,7 +70,7 @@ void Game::UpdateModel()
 		break;
 	case State::EnemyStart:
 	{
-		EnemyUpdateInfo euInfo{ tilemap,dt };
+		EnemyUpdateInfo euInfo{ tilemap,player,dt };
 		if( ( *curEnemy )->StartTurn( euInfo ) )
 		{
 			gameState = State::EnemyTurn;
