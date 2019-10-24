@@ -19,6 +19,9 @@
     <Filter Include="Header Files\Cards">
       <UniqueIdentifier>{5442ca7e-4a6b-4817-a613-11eb519b64d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{57b51885-ea5b-4a0a-abc6-61e86b526769}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -117,6 +120,12 @@
     <ClInclude Include="BasicStrike.h">
       <Filter>Header Files\Cards</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rat.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -168,6 +177,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Card.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -21,6 +21,7 @@ public:
 		const RangeI& roomSize,const RangeI& mapSize );
 
 	TileType GetTile( int x,int y ) const;
+	TileType GetTile( const Vei2& pos ) const;
 	Vei2 GetRandFloorPos() const;
 private:
 	int width;

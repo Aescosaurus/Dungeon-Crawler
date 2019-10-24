@@ -125,6 +125,11 @@ TileMap::TileType TileMap::GetTile( int x,int y ) const
 	}
 }
 
+TileMap::TileType TileMap::GetTile( const Vei2& pos ) const
+{
+	return( GetTile( pos.x,pos.y ) );
+}
+
 Vei2 TileMap::GetRandFloorPos() const
 {
 	auto randPos = Vei2{ -1,-1 };

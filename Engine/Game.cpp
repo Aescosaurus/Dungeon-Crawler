@@ -30,6 +30,9 @@ Game::Game( MainWindow& wnd )
 	player( tilemap.GetRandFloorPos(),tilemap,cam,menu )
 {
 	cam.CenterOn( player.GetPos() );
+
+	enemies.emplace_back( std::make_unique<Rat>(
+		player.GetPos() + Vec2::Right() * 2 ) );
 }
 
 void Game::Go()
@@ -56,26 +59,42 @@ void Game::UpdateModel()
 		if( player.EndTurn() )
 		{
 			gameState = State::EnemyStart;
-			// curEnemy = enemies.begin();
+			curEnemy = enemies.begin();
 		}
 		break;
 	case State::EnemyStart:
-		// if curEnemy.StartTurn
-		gameState = State::EnemyTurn;
-		break;
+	{
+		EnemyUpdateInfo euInfo{ tilemap,dt };
+		if( ( *curEnemy )->StartTurn( euInfo ) )
+		{
+			gameState = State::EnemyTurn;
+		}
+	}
+	break;
 	case State::EnemyTurn:
-		gameState = State::EnemyEnd;
+		if( ( *curEnemy )->UpdateTurn( dt ) )
+		{
+			gameState = State::EnemyEnd;
+		}
 		break;
 	case State::EnemyEnd:
-		// ++curEnemy;
-		// if curEnemy == enemies.end
-		gameState = State::PlayerStart;
+		( *curEnemy )->EndTurn();
+		++curEnemy;
+		if( curEnemy == enemies.end() )
+		{
+			gameState = State::PlayerStart;
+		}
+		else
+		{
+			gameState = State::EnemyStart;
+		}
 	}
 }
 
 void Game::ComposeFrame()
 {
 	tilemap.Draw( cam );
+	for( const auto& e : enemies ) e->Draw( cam );
 	player.Draw( cam );
 
 	menu.Draw( cam,gfx );

@@ -30,6 +30,8 @@
 #include "FrameTimer.h"
 #include "SideMenu.h"
 
+#include "Rat.h"
+
 class Game
 {
 private:
@@ -64,7 +66,7 @@ private:
 	Player player;
 	State gameState = State::PlayerStart;
 	FrameTimer ft;
-	// std::vector<std::unique_ptr<Enemy>> enemies;
-	// std::vector<std::unique_ptr<Enemy>>::iterator curEnemy;
+	std::vector<std::unique_ptr<Enemy>> enemies;
+	std::vector<std::unique_ptr<Enemy>>::iterator curEnemy;
 	/********************************/
 };
