@@ -11,7 +11,9 @@ Player::Player( const Vec2& pos,const TileMap& tilemap,
 	menu( menu ),
 	cardHandler( menu.GetCardHandler() ),
 	msgLog( menu.GetMessageLog() )
-{}
+{
+	stats.UpdateStats( cardHandler.GetCards() );
+}
 
 bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
 	const std::vector<std::unique_ptr<Enemy>>& enemies )

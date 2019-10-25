@@ -20,6 +20,7 @@ public:
 
 	void Discard();
 	void Reset();
+	Type GetType() const;
 
 	bool IsDiscarded() const;
 protected:

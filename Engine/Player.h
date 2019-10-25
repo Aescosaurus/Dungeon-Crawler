@@ -7,6 +7,7 @@
 #include "TileMap.h"
 #include "Timer.h"
 #include "SideMenu.h"
+#include "Stats.h"
 
 class Player
 {
@@ -39,4 +40,5 @@ private:
 	Vei2 target = { 0,0 };
 	Timer moveTimer = Timer::turnTime;
 	TurnType turn = TurnType::None;
+	Stats stats;
 };

@@ -147,3 +147,8 @@ bool CardHandler::DoneWithTurn() const
 {
 	return( doneWithTurn );
 }
+
+const std::vector<std::unique_ptr<Card>>& CardHandler::GetCards() const
+{
+	return( deck.GetCards() );
+}

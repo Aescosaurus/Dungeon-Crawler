@@ -23,6 +23,11 @@ void Card::Reset()
 	discarded = false;
 }
 
+Card::Type Card::GetType() const
+{
+	return( type );
+}
+
 bool Card::IsDiscarded() const
 {
 	return( discarded );

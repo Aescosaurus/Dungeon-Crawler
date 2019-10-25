@@ -31,6 +31,7 @@ public:
 
 	bool HasSelectedCard() const;
 	bool DoneWithTurn() const;
+	const std::vector<std::unique_ptr<Card>>& GetCards() const;
 private:
 	static constexpr int nCards = 3;
 	static constexpr int padding = 5;

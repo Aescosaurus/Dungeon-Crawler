@@ -71,6 +71,10 @@ public:
 
 		return( hand[slot] != -1 );
 	}
+	const std::vector<std::unique_ptr<Card>>& GetCards() const
+	{
+		return( cards );
+	}
 private:
 	std::vector<std::unique_ptr<Card>> cards;
 	std::vector<int> hand;
