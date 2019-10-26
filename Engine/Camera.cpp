@@ -17,6 +17,20 @@ void Camera::RenderRect( const Vec2& pos,Color c ) const
 	}
 }
 
+void Camera::RenderImage( const Vec2& pos,CSurfPtr img,
+	const RectI& area ) const
+{
+	if( viewArea.GetExpandedBy( 1.0f ).OverlapsPoint( pos ) )
+	{
+		gfx.DrawSprite(
+			int( ( pos.x - viewArea.left ) * float( tileSize ) ),
+			int( ( pos.y - viewArea.top ) * float( tileSize ) ),
+			*img,area,
+			SpriteEffect::Chroma{ Colors::Magenta }
+		);
+	}
+}
+
 void Camera::CenterOn( const Vec2& pos )
 {
 	viewArea.MoveTo( pos - Vec2( Vei2( viewArea.GetSize() ) / 2 ) );

@@ -3,6 +3,7 @@
 #include "Graphics.h"
 #include "Vec2.h"
 #include "Rect.h"
+#include "Codex.h"
 
 class Camera
 {
@@ -11,6 +12,8 @@ public:
 
 	// Render rect using absolute coordinates.
 	void RenderRect( const Vec2& pos,Color c ) const;
+	void RenderImage( const Vec2& pos,CSurfPtr img,
+		const RectI& area ) const;
 
 	void CenterOn( const Vec2& pos );
 

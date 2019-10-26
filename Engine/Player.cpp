@@ -13,6 +13,14 @@ Player::Player( const Vec2& pos,const TileMap& tilemap,
 	msgLog( menu.GetMessageLog() )
 {
 	stats.UpdateStats( cardHandler.GetCards() );
+
+	for( int i = 0; i < 4; ++i )
+	{
+		frames.emplace_back( RectI{
+			( img->GetWidth() / 4 ) * i,
+			( img->GetWidth() / 4 ) * ( i + 1 ),
+			0,img->GetHeight() } );
+	}
 }
 
 bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
@@ -37,6 +45,7 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
 		return( curEnemy->GetPos() == pos + move );
 	} ) == enemies.end() )
 	{
+		lookDir = Dir::Vec2Dir( move );
 		target = Vei2( pos ) + move;
 		turn = TurnType::Movement;
 		return( true );
@@ -121,7 +130,8 @@ bool Player::EndTurn()
 
 void Player::Draw( const Camera& cam ) const
 {
-	cam.RenderRect( pos,Colors::Blue1 );
+	// cam.RenderRect( pos,Colors::Blue1 );
+	cam.RenderImage( pos,img,frames[int( lookDir )] );
 }
 
 const Vec2& Player::GetPos() const

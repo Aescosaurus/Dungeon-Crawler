@@ -8,6 +8,8 @@
 #include "Timer.h"
 #include "SideMenu.h"
 #include "Stats.h"
+#include "Codex.h"
+#include "Dir.h"
 
 class Player
 {
@@ -41,4 +43,7 @@ private:
 	Timer moveTimer = Timer::turnTime;
 	TurnType turn = TurnType::None;
 	Stats stats;
+	CSurfPtr img = SurfCodex::Fetch( "Images/Player.bmp" );
+	std::vector<RectI> frames;
+	Dir::Direction lookDir = Dir::Direction::Up;
 };
