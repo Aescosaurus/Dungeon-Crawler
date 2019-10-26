@@ -3,6 +3,7 @@
 #include <string>
 #include "Graphics.h"
 #include "Codex.h"
+#include "Animation.h"
 
 class Card
 {
@@ -20,8 +21,9 @@ public:
 
 	void Discard();
 	void Reset();
-	Type GetType() const;
+	Animation& GetAnimRef();
 
+	Type GetType() const;
 	bool IsDiscarded() const;
 protected:
 	// Name: Name of the card.
@@ -30,7 +32,8 @@ protected:
 	// Type: What type of card is it.
 	// ImgSrc: Path to icon.
 	Card( const std::string& name,int damage,int range,
-		Type type,const std::string& imgSrc );
+		Type type,const std::string& imgSrc,
+		const std::string& animSrc );
 private:
 	Color Type2Color( Type t );
 private:
@@ -41,6 +44,8 @@ private:
 	int range;
 	Type type;
 	Color textCol;
-	CSurfPtr img;
+	CSurfPtr icon;
 	bool discarded = false;
+	CSurfPtr sprSheet;
+	Animation anim;
 };

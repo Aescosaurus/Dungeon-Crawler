@@ -9,8 +9,8 @@ void Card::Draw( const RectI& area,Graphics& gfx ) const
 	unluckyPixel->DrawText( info,area.GetTopLeft() +
 		Vei2{ padding,padding },textCol,gfx );
 
-	gfx.DrawSprite( area.right - img->GetWidth() - padding,
-		area.top + padding,*img,SpriteEffect::Chroma{} );
+	gfx.DrawSprite( area.right - icon->GetWidth() - padding,
+		area.top + padding,*icon,SpriteEffect::Chroma{} );
 }
 
 void Card::Discard()
@@ -21,6 +21,11 @@ void Card::Discard()
 void Card::Reset()
 {
 	discarded = false;
+}
+
+Animation& Card::GetAnimRef()
+{
+	return( anim );
 }
 
 Card::Type Card::GetType() const
@@ -34,14 +39,17 @@ bool Card::IsDiscarded() const
 }
 
 Card::Card( const std::string& name,int damage,int range,
-	Type type,const std::string& imgSrc )
+	Type type,const std::string& imgSrc,
+	const std::string& animSrc )
 	:
 	name( name ),
 	damage( damage ),
 	range( range ),
 	type( type ),
 	textCol( Type2Color( type ) ),
-	img( SurfCodex::Fetch( imgSrc ) )
+	icon( SurfCodex::Fetch( imgSrc ) ),
+	sprSheet( SurfCodex::Fetch( animSrc ) ),
+	anim( 0,0,60,60,4,*sprSheet )
 {}
 
 Color Card::Type2Color( Type t )

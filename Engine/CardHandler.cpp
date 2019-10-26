@@ -60,7 +60,7 @@ void CardHandler::Update( const Camera& cam,
 		}
 	}
 
-	playTime.Reset();
+	// playTime.Reset();
 
 	mousePos = mouse.GetPos();
 }
@@ -109,24 +109,36 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 			Vei2{ mousePos.x - width / 2,
 			mousePos.y - height / 2 },width,height },gfx );
 	}
+
+	if( curCardAnim != nullptr )
+	{
+		curCardAnim->Draw( cardAnimSpot,cam );
+	}
+}
+
+void CardHandler::StartTurn( const Vec2& target )
+{
+	cardAnimSpot = target;
+	curCardAnim = &deck.GetCardRef( selectedCard ).GetAnimRef();
+	curCardAnim->Reset();
 }
 
 bool CardHandler::PlaySelectedCard( float dt )
 {
-	playTime.Update( dt );
+	curCardAnim->Update( dt );
 
-	if( playTime.IsDone() )
+	if( curCardAnim->IsDone() )
 	{
-		// selectedCard = -1;
 		doneWithTurn = false;
 	}
 
-	return( playTime.IsDone() );
+	return( curCardAnim->IsDone() );
 }
 
 void CardHandler::EndTurn()
 {
 	deck.Discard( selectedCard );
+	curCardAnim = nullptr;
 
 	// TODO: Deal damage to enemy.
 

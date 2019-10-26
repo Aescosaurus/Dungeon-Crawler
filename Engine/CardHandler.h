@@ -25,6 +25,7 @@ public:
 		const Keyboard& kbd,Mouse& mouse );
 	void Draw( const Camera& cam,Graphics& gfx ) const;
 
+	void StartTurn( const Vec2& target );
 	bool PlaySelectedCard( float dt );
 	void EndTurn();
 	void DeselectCard();
@@ -38,8 +39,10 @@ private:
 	std::vector<CardSlot> cardSlots;
 	Vei2 mousePos = { -1,-1 };
 	int selectedCard = -1;
-	Timer playTime = Timer::turnTime;
+	// Timer playTime = Timer::turnTime;
 	Vei2 selectedSquare = { -1,-1 };
 	bool doneWithTurn = false;
 	Deck deck;
+	Animation* curCardAnim = nullptr;
+	Vec2 cardAnimSpot = Vec2::Zero();
 };

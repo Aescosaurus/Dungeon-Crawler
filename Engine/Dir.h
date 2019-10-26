@@ -26,4 +26,21 @@ public:
 		assert( false );
 		return( Direction::Up );
 	}
+	static Vei2 Dir2Vec( Direction d )
+	{
+		switch( d )
+		{
+		case Direction::Up:
+			return( Vei2::Up() );
+		case Direction::Down:
+			return( Vei2::Down() );
+		case Direction::Left:
+			return( Vei2::Left() );
+		case Direction::Right:
+			return( Vei2::Right() );
+		default:
+			assert( false );
+			return( Vei2::Zero() );
+		}
+	}
 };

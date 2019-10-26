@@ -59,8 +59,9 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
 	}
 	else if( cardHandler.DoneWithTurn() )
 	{
+		target = Vei2( pos ) + Dir::Dir2Vec( lookDir );
+		cardHandler.StartTurn( target );
 		turn = TurnType::Attack;
-		// target = cardHandler.GetTarget();
 		return( true );
 	}
 	else if( kbd.KeyIsPressed( VK_SPACE ) )

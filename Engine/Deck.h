@@ -55,6 +55,14 @@ public:
 			// }
 		}
 	}
+	Card& GetCardRef( int slot ) const
+	{
+		assert( slot >= 0 );
+		assert( slot < nCards );
+		assert( hand[slot] != -1 );
+
+		return( *cards[hand[slot]] );
+	}
 
 	const Card* const GetCard( int slot ) const
 	{
