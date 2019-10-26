@@ -27,7 +27,7 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
 	const std::vector<std::unique_ptr<Enemy>>& enemies )
 {
 	// Move turn.
-	move = { 0,0 };
+	move = Vei2::Zero();
 	if( kbd.KeyIsPressed( 'W' ) ) --move.y;
 	else if( kbd.KeyIsPressed( 'S' ) ) ++move.y;
 	else if( kbd.KeyIsPressed( 'A' ) ) --move.x;
@@ -36,19 +36,26 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
 	// Play card turn.
 	menu.Update( kbd,mouse );
 
-	if( ( move.x != 0 || move.y != 0 ) &&
-		tilemap.GetTile( Vei2( pos ) + move ) ==
-		TileMap::TileType::Floor &&
-		std::find_if( enemies.begin(),enemies.end(),[&]
-		( const std::unique_ptr<Enemy>& curEnemy )
+	if( move != Vei2::Zero() )
 	{
-		return( curEnemy->GetPos() == pos + move );
-	} ) == enemies.end() )
-	{
-		lookDir = Dir::Vec2Dir( move );
-		target = Vei2( pos ) + move;
-		turn = TurnType::Movement;
-		return( true );
+		if( tilemap.GetTile( Vei2( pos ) + move ) ==
+			TileMap::TileType::Floor &&
+			std::find_if( enemies.begin(),enemies.end(),[&]
+			( const std::unique_ptr<Enemy>& curEnemy )
+		{
+			return( curEnemy->GetPos() == pos + move );
+		} ) == enemies.end() )
+		{
+			lookDir = Dir::Vec2Dir( move );
+			target = Vei2( pos ) + move;
+			turn = TurnType::Movement;
+			return( true );
+		}
+		else
+		{
+			lookDir = Dir::Vec2Dir( move );
+			return( false );
+		}
 	}
 	else if( cardHandler.DoneWithTurn() )
 	{
