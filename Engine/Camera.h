@@ -4,6 +4,7 @@
 #include "Vec2.h"
 #include "Rect.h"
 #include "Codex.h"
+#include "Dir.h"
 
 class Camera
 {
@@ -13,7 +14,8 @@ public:
 	// Render rect using absolute coordinates.
 	void RenderRect( const Vec2& pos,Color c ) const;
 	void RenderImage( const Vec2& pos,CSurfPtr img,
-		const RectI& area ) const;
+		const RectI& area,
+		Dir::Direction rotation = Dir::Direction::Up ) const;
 
 	void CenterOn( const Vec2& pos );
 

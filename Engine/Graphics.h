@@ -26,6 +26,7 @@
 #include "Colors.h"
 #include "Rect.h"
 #include "Surface.h"
+#include "Matrix.h"
 
 class Graphics
 {
@@ -65,19 +66,21 @@ public:
 	void DrawRectSafe( int x,int y,int width,int height,Color c );
 	template<typename Effect>
 	void DrawSprite( int x,int y,const Surface& spr,
-		Effect eff )
+		Effect eff,const Matrix& mat = Matrix::Up() )
 	{
-		DrawSprite( x,y,spr,spr.GetRect(),eff );
+		DrawSprite( x,y,spr,spr.GetRect(),eff,mat );
 	}
 	template<typename Effect>
 	void DrawSprite( int x,int y,const Surface& spr,
-		const RectI& srcRect,Effect eff )
+		const RectI& srcRect,Effect eff,
+		const Matrix& mat = Matrix::Up() )
 	{
-		DrawSprite( x,y,spr,srcRect,GetScreenRect(),eff );
+		DrawSprite( x,y,spr,srcRect,GetScreenRect(),eff,mat );
 	}
 	template<typename Effect>
 	void DrawSprite( int x,int y,const Surface& spr,
-		RectI srcRect,const RectI& clip,Effect eff )
+		RectI srcRect,const RectI& clip,Effect eff,
+		const Matrix& mat = Matrix::Up() )
 	{
 		assert( srcRect.left >= 0 );
 		assert( srcRect.right <= spr.GetWidth() );
@@ -107,14 +110,31 @@ public:
 			srcRect.bottom -= y + srcRect.GetHeight() - clip.bottom;
 		}
 
+		const Vec2 center = Vec2{ float( x + srcRect.GetWidth() / 2 ),
+			float( y + srcRect.GetHeight() / 2 ) };
+
 		for( int sy = srcRect.top; sy < srcRect.bottom; ++sy )
 		{
 			for( int sx = srcRect.left; sx < srcRect.right; ++sx )
 			{
-				eff( spr.GetPixel( sx,sy ),
-					x + sx - srcRect.left,
-					y + sy - srcRect.top,
-					*this );
+				if( mat == Matrix::Up() )
+				{
+					eff( spr.GetPixel( sx,sy ),
+						x + sx - srcRect.left,
+						y + sy - srcRect.top,
+						*this );
+				}
+				else
+				{
+					Vec2 drawPos = Vec2{ float( x + sx - srcRect.left ),
+						float( y + sy - srcRect.top ) };
+					drawPos -= center;
+					drawPos = mat * drawPos;
+					drawPos += center;
+					eff( spr.GetPixel( sx,sy ),
+						int( drawPos.x ),int( drawPos.y ),
+						*this );
+				}
 			}
 		}
 	}

@@ -112,13 +112,14 @@ void CardHandler::Draw( const Camera& cam,Graphics& gfx ) const
 
 	if( curCardAnim != nullptr )
 	{
-		curCardAnim->Draw( cardAnimSpot,cam );
+		curCardAnim->Draw( cardAnimSpot,cam,cardDir );
 	}
 }
 
-void CardHandler::StartTurn( const Vec2& target )
+void CardHandler::StartTurn( const Vec2& target,Dir::Direction dir )
 {
 	cardAnimSpot = target;
+	cardDir = dir;
 	curCardAnim = &deck.GetCardRef( selectedCard ).GetAnimRef();
 	curCardAnim->Reset();
 }

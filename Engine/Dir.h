@@ -2,6 +2,7 @@
 
 #include "Vec2.h"
 #include <cassert>
+#include "Matrix.h"
 
 class Dir
 {
@@ -41,6 +42,23 @@ public:
 		default:
 			assert( false );
 			return( Vei2::Zero() );
+		}
+	}
+	static Matrix Dir2Mat( Direction d )
+	{
+		switch( d )
+		{
+		case Direction::Up:
+			return( Matrix::Up() );
+		case Direction::Down:
+			return( Matrix::Down() );
+		case Direction::Left:
+			return( Matrix::Left() );
+		case Direction::Right:
+			return( Matrix::Right() );
+		default:
+			assert( false );
+			return( Matrix::Up() );
 		}
 	}
 };

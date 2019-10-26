@@ -25,7 +25,7 @@ public:
 		const Keyboard& kbd,Mouse& mouse );
 	void Draw( const Camera& cam,Graphics& gfx ) const;
 
-	void StartTurn( const Vec2& target );
+	void StartTurn( const Vec2& target,Dir::Direction dir );
 	bool PlaySelectedCard( float dt );
 	void EndTurn();
 	void DeselectCard();
@@ -45,4 +45,5 @@ private:
 	Deck deck;
 	Animation* curCardAnim = nullptr;
 	Vec2 cardAnimSpot = Vec2::Zero();
+	Dir::Direction cardDir = Dir::Direction::Up;
 };

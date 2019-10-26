@@ -18,7 +18,7 @@ void Camera::RenderRect( const Vec2& pos,Color c ) const
 }
 
 void Camera::RenderImage( const Vec2& pos,CSurfPtr img,
-	const RectI& area ) const
+	const RectI& area,Dir::Direction rotation ) const
 {
 	if( viewArea.GetExpandedBy( 1.0f ).OverlapsPoint( pos ) )
 	{
@@ -26,7 +26,8 @@ void Camera::RenderImage( const Vec2& pos,CSurfPtr img,
 			int( ( pos.x - viewArea.left ) * float( tileSize ) ),
 			int( ( pos.y - viewArea.top ) * float( tileSize ) ),
 			*img,area,
-			SpriteEffect::Chroma{ Colors::Magenta }
+			SpriteEffect::Chroma{ Colors::Magenta },
+			Dir::Dir2Mat( rotation )
 		);
 	}
 }

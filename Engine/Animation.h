@@ -2,6 +2,7 @@
 
 #include "Surface.h"
 #include "Camera.h"
+#include "Matrix.h"
 
 class Animation
 {
@@ -35,11 +36,12 @@ public:
 			curFrameTime -= holdTime;
 		}
 	}
-	void Draw( const Vec2& pos,const Camera& cam ) const
+	void Draw( const Vec2& pos,const Camera& cam,
+		Dir::Direction angle = Dir::Direction::Up ) const
 	{
 		// gfx.DrawSprite( pos.x,pos.y,frames[curFrame],
 		// 	*sheet,centered,eff );
-		cam.RenderImage( pos,sheet,frames[curFrame] );
+		cam.RenderImage( pos,sheet,frames[curFrame],angle );
 	}
 
 	void Reset()
