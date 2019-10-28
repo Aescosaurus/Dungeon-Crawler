@@ -38,6 +38,11 @@ bool Card::IsDiscarded() const
 	return( discarded );
 }
 
+const std::string& Card::GetName() const
+{
+	return( name );
+}
+
 Card::Card( const std::string& name,int damage,int range,
 	Type type,const std::string& imgSrc,
 	const std::string& animSrc )

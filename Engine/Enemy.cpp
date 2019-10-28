@@ -68,11 +68,18 @@ bool Enemy::IsExpl() const
 	return( health <= 0 );
 }
 
-Enemy::Enemy( const Vec2& pos,Color c,int health )
+const std::string& Enemy::GetName() const
+{
+	return( name );
+}
+
+Enemy::Enemy( const std::string& name,const Vec2& pos,
+	int health,Color c )
 	:
+	name( name ),
 	pos( pos ),
-	c( c ),
-	health( health )
+	health( health ),
+	c( c )
 {}
 
 bool Enemy::Move( const Vei2& dir,EnemyUpdateInfo& info )

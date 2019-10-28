@@ -10,7 +10,7 @@ class Rat
 public:
 	Rat( const Vec2& pos )
 		:
-		Enemy( pos,Colors::Blue5,1 )
+		Enemy( "Rat",pos,1,Colors::Blue5 )
 	{}
 
 	bool StartTurn( EnemyUpdateInfo& info ) override

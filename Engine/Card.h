@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "Stats.h"
+#include <string>
 
 class CardUpdateInfo
 {
@@ -35,6 +36,7 @@ public:
 
 	Type GetType() const;
 	bool IsDiscarded() const;
+	const std::string& GetName() const;
 protected:
 	// Name: Name of the card.
 	// Damage: Damage, as percent of attack (0=0%,100=100%).

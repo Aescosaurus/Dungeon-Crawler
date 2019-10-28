@@ -141,9 +141,12 @@ void CardHandler::EndTurn( Enemy* enemy,const Stats& stats,
 {
 	if( enemy != nullptr )
 	{
-		const auto dmg = deck.GetCardRef( selectedCard ).Play(
+		auto& curCard = deck.GetCardRef( selectedCard );
+		const auto dmg = curCard.Play(
 			CardUpdateInfo{ *enemy,stats } );
-		msgLog.Log( "Card did " + std::to_string( dmg ) + " damage!" );
+		msgLog.Log( curCard.GetName() + " did " +
+			std::to_string( dmg ) + " damage to " +
+			enemy->GetName() + "!" );
 	}
 	
 	deck.Discard( selectedCard );

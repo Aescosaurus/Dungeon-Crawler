@@ -5,6 +5,7 @@
 #include "TileMap.h"
 #include "Timer.h"
 #include <memory>
+#include <string>
 
 class Enemy;
 
@@ -36,16 +37,19 @@ public:
 
 	const Vec2& GetPos() const;
 	bool IsExpl() const;
+	const std::string& GetName() const;
 protected:
-	Enemy( const Vec2& pos,Color c,int health );
+	Enemy( const std::string& name,const Vec2& pos,
+		int health,Color c );
 
 	bool Move( const Vei2& dir,EnemyUpdateInfo& info );
 protected:
 	TurnType action = TurnType::None;
 	Vec2 pos;
 private:
-	Color c;
+	std::string name;
 	int health;
+	Color c;
 	Vei2 target = Vei2::Zero();
 	Vei2 move = Vei2::Zero();
 	Timer moveTimer = Timer::turnTime;
