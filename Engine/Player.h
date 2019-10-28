@@ -27,7 +27,8 @@ public:
 	bool StartTurn( const Keyboard& kbd,Mouse& mouse,
 		const std::vector<std::unique_ptr<class Enemy>>& enemies );
 	bool UpdateTurn( const Mouse& mouse,float dt );
-	bool EndTurn( std::vector<std::unique_ptr<class Enemy>>& enemies );
+	bool EndTurn( std::vector<std::unique_ptr<class Enemy>>& enemies,
+		std::vector<HitNumber>& hitNums );
 	void Draw( const Camera& cam ) const;
 
 	const Vec2& GetPos() const;

@@ -29,6 +29,7 @@
 #include "Player.h"
 #include "FrameTimer.h"
 #include "SideMenu.h"
+#include "HitNumber.h"
 
 #include "Rat.h"
 
@@ -68,5 +69,6 @@ private:
 	FrameTimer ft;
 	std::vector<std::unique_ptr<Enemy>> enemies;
 	std::vector<std::unique_ptr<Enemy>>::iterator curEnemy;
+	std::vector<HitNumber> hitNums;
 	/********************************/
 };

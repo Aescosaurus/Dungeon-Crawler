@@ -112,7 +112,8 @@ bool Player::UpdateTurn( const Mouse& mouse,float dt )
 	}
 }
 
-bool Player::EndTurn( std::vector<std::unique_ptr<Enemy>>& enemies )
+bool Player::EndTurn( std::vector<std::unique_ptr<Enemy>>& enemies,
+	std::vector<HitNumber>& hitNums )
 {
 	switch( turn )
 	{
@@ -135,7 +136,7 @@ bool Player::EndTurn( std::vector<std::unique_ptr<Enemy>>& enemies )
 			}
 		}
 		// msgLog.Log( "Attacking!" );
-		cardHandler.EndTurn( enemy,stats,msgLog );
+		cardHandler.EndTurn( enemy,stats,msgLog,hitNums,cam );
 	}
 		break;
 	default:

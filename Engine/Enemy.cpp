@@ -55,6 +55,9 @@ int Enemy::Attack( int damage )
 	health -= damage;
 
 	// TODO: Reduce damage by defense.
+
+
+
 	return( damage );
 }
 

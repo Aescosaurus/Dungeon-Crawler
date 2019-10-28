@@ -55,3 +55,8 @@ Vec2 Camera::RelativeToAbsolute( const Vec2& rel ) const
 
 	return( rel + viewArea.GetTopLeft() );
 }
+
+Vec2 Camera::AbsoluteToRelative( const Vec2& loc ) const
+{
+	return( loc - viewArea.GetTopLeft() );
+}

@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include <memory>
 #include <string>
+#include "HitNumber.h"
 
 class Enemy;
 

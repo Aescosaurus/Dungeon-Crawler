@@ -4,6 +4,7 @@
 #include "Graphics.h"
 #include <string>
 #include "Timer.h"
+#include "Codex.h"
 
 class HitNumber
 {
@@ -11,7 +12,7 @@ public:
 	HitNumber( const Vec2& pos,int number )
 		:
 		pos( pos ),
-		text( std::to_string( number ) )
+		text( "-" + std::to_string( number ) )
 	{}
 
 	void Update( float dt )
@@ -22,7 +23,8 @@ public:
 	}
 	void Draw( Graphics& gfx ) const
 	{
-
+		unluckyPixel->DrawText( text,Vei2( pos ),
+			Colors::Black1,gfx,true );
 	}
 
 	bool IsDone() const
@@ -30,8 +32,9 @@ public:
 		return( fadeTimer.IsDone() );
 	}
 private:
-	static constexpr Vec2 vel = { 0.0f,-0.1f };
+	static constexpr Vec2 vel = { 0.0f,-12.5f };
+	CFontPtr unluckyPixel = FontCodex::Fetch( "Fonts/UnluckyPixel.bmp" );
 	Vec2 pos;
 	std::string text;
-	Timer fadeTimer = 0.2f;
+	Timer fadeTimer = 0.5f;
 };

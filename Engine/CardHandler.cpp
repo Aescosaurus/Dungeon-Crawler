@@ -137,16 +137,23 @@ bool CardHandler::PlaySelectedCard( float dt )
 }
 
 void CardHandler::EndTurn( Enemy* enemy,const Stats& stats,
-	MessageLog& msgLog )
+	MessageLog& msgLog,std::vector<HitNumber>& hitNums,
+	const Camera& cam )
 {
 	auto& curCard = deck.GetCardRef( selectedCard );
 	if( enemy != nullptr )
 	{
 		const auto dmg = curCard.Play(
 			CardUpdateInfo{ *enemy,stats } );
+
+		hitNums.emplace_back( HitNumber{ Vei2( cam.AbsoluteToRelative(
+			enemy->GetPos() ) ) * Camera::tileSize +
+			Vei2{ Camera::tileSize / 2,10 },dmg } );
+
 		msgLog.Log( curCard.GetName() + " did " +
 			std::to_string( dmg ) + " damage to " +
 			enemy->GetName() + "!" );
+
 		if( enemy->IsExpl() )
 		{
 			msgLog.Log( enemy->GetName() + " has been defeated!" );

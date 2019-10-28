@@ -47,7 +47,9 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	const auto dt = ft.Mark();
-	// player.Update( wnd.kbd );
+
+	for( auto& num : hitNums ) num.Update( dt );
+	chili::remove_erase_if( hitNums,std::mem_fn( &HitNumber::IsDone ) );
 	switch( gameState )
 	{
 	case State::PlayerStart:
@@ -63,7 +65,7 @@ void Game::UpdateModel()
 		}
 		break;
 	case State::PlayerEnd:
-		if( player.EndTurn( enemies ) )
+		if( player.EndTurn( enemies,hitNums ) )
 		{
 			chili::remove_erase_if( enemies,
 				std::mem_fn( &Enemy::IsExpl ) );
@@ -111,6 +113,7 @@ void Game::ComposeFrame()
 	tilemap.Draw( cam );
 	for( const auto& e : enemies ) e->Draw( cam );
 	player.Draw( cam );
+	for( const auto& num : hitNums ) num.Draw( gfx );
 
 	menu.Draw( cam,gfx );
 }
