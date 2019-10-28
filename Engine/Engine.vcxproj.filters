@@ -22,6 +22,21 @@
     <Filter Include="Header Files\Enemies">
       <UniqueIdentifier>{57b51885-ea5b-4a0a-abc6-61e86b526769}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Cards\Fire">
+      <UniqueIdentifier>{88c33e2a-8358-4854-81f2-e8503882e4e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Cards\Poison">
+      <UniqueIdentifier>{04598a87-1078-4ed4-a533-c8e749ffb4b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Cards\Ice">
+      <UniqueIdentifier>{765294f1-f285-4cb6-adf0-46cca7e078c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Cards\Ghost">
+      <UniqueIdentifier>{9f225d69-3b46-44d1-97a4-35d5e78da7c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Cards\Typeless">
+      <UniqueIdentifier>{ff3e1666-ca14-4508-aceb-da494f146ab0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -117,9 +132,6 @@
     <ClInclude Include="Card.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BasicStrike.h">
-      <Filter>Header Files\Cards</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -140,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="ChiliUtils.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicStrike.h">
+      <Filter>Header Files\Cards\Typeless</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

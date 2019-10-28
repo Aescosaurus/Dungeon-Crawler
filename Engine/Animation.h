@@ -8,7 +8,7 @@ class Animation
 {
 public:
 	Animation( int x,int y,int width,int height,int count,
-		const Surface& sheet,float holdTime = 0.2f )
+		const Surface& sheet,float holdTime = 1.0f / 12.0f )
 		:
 		sheet( &sheet ),
 		holdTime( holdTime )

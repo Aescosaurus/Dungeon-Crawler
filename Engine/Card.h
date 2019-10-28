@@ -31,6 +31,7 @@ protected:
 	// Range: Range, in tiles.
 	// Type: What type of card is it.
 	// ImgSrc: Path to icon.
+	// AnimSrc: Path to play animation.
 	Card( const std::string& name,int damage,int range,
 		Type type,const std::string& imgSrc,
 		const std::string& animSrc );
