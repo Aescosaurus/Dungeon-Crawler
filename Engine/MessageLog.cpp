@@ -42,7 +42,7 @@ void MessageLog::Log( const std::string& message )
 			}
 			else
 			{
-				lines.emplace_back( "" );
+				lines.emplace_back( std::string{ c } );
 			}
 		}
 
