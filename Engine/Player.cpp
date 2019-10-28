@@ -134,7 +134,7 @@ bool Player::EndTurn( std::vector<std::unique_ptr<Enemy>>& enemies )
 				enemy = e.get();
 			}
 		}
-		msgLog.Log( "Attacking!" );
+		// msgLog.Log( "Attacking!" );
 		cardHandler.EndTurn( enemy,stats,msgLog );
 	}
 		break;

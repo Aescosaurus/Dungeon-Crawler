@@ -139,14 +139,22 @@ bool CardHandler::PlaySelectedCard( float dt )
 void CardHandler::EndTurn( Enemy* enemy,const Stats& stats,
 	MessageLog& msgLog )
 {
+	auto& curCard = deck.GetCardRef( selectedCard );
 	if( enemy != nullptr )
 	{
-		auto& curCard = deck.GetCardRef( selectedCard );
 		const auto dmg = curCard.Play(
 			CardUpdateInfo{ *enemy,stats } );
 		msgLog.Log( curCard.GetName() + " did " +
 			std::to_string( dmg ) + " damage to " +
 			enemy->GetName() + "!" );
+		if( enemy->IsExpl() )
+		{
+			msgLog.Log( enemy->GetName() + " has been defeated!" );
+		}
+	}
+	else
+	{
+		msgLog.Log( curCard.GetName() + " missed!" );
 	}
 	
 	deck.Discard( selectedCard );
