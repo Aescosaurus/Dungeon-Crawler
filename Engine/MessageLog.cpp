@@ -14,14 +14,18 @@ MessageLog::MessageLog( const RectI& messageArea )
 
 void MessageLog::Draw( Graphics& gfx ) const
 {
-	std::string text = "";
-	for( const std::string& message : messages )
-	{
-		text += message + '\n';
-	}
-
-	unluckyPixel->DrawText( text,messageStart +
-		Vei2::Right() * padding,
+	// std::string text = "";
+	// for( const std::string& message : messages )
+	// {
+	// 	text += message + '\n';
+	// }
+	// 
+	// unluckyPixel->DrawText( text,messageStart +
+	// 	Vei2::Right() * padding,
+	// 	Colors::Black1,gfx );
+	unluckyPixel->DrawLines( std::vector<std::string>{
+		messages.begin(),messages.end() },
+		messageStart + Vei2::Right() * padding,
 		Colors::Black1,gfx );
 }
 

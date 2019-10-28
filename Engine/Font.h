@@ -61,6 +61,29 @@ public:
 		}
 	}
 
+	void DrawLines( const std::vector<std::string>& lines,
+		const Vei2& loc,Color textCol,Graphics& gfx ) const
+	{
+		Vei2 drawPos = loc;
+		for( const auto& line : lines )
+		{
+			for( char c : line )
+			{
+				assert( c != '\n' );
+				const auto& glyphRect = GetGlyphRect( c );
+
+				gfx.DrawSprite( drawPos.x,drawPos.y,
+					fontSheet,glyphRect,SpriteEffect::Substitution{
+						Colors::White,textCol } );
+
+				drawPos.x += glyphRect.GetWidth();
+			}
+
+			drawPos.x = loc.x;
+			drawPos.y += fontSheet.GetHeight() + lineHeight;
+		}
+	}
+
 	int CalculateTextWidth( const std::string& text ) const
 	{
 		int width = 0;

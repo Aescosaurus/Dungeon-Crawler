@@ -156,6 +156,9 @@
     <ClInclude Include="BasicStrike.h">
       <Filter>Header Files\Cards\Typeless</Filter>
     </ClInclude>
+    <ClInclude Include="HitNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
