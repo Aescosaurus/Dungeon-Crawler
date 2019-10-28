@@ -38,35 +38,36 @@ public:
 	}
 
 	void DrawText( const std::string& text,
-		const Vei2& loc,Color textCol,Graphics& gfx ) const
+		const Vei2& loc,Color textCol,Graphics& gfx,
+		bool centered = false ) const
 	{
-		Vei2 drawPos = loc;
-		for( auto c : text )
+		std::vector<std::string> lines;
+		lines.emplace_back( "" );
+		for( char c : text )
 		{
 			if( c == '\n' )
 			{
-				drawPos.x = loc.x;
-				drawPos.y += fontSheet.GetHeight() + lineHeight;
+				lines.emplace_back( "" );
 			}
 			else
 			{
-				const auto& glyphRect = GetGlyphRect( c );
-
-				gfx.DrawSprite( drawPos.x,drawPos.y,
-					fontSheet,glyphRect,SpriteEffect::Substitution{
-						Colors::White,textCol } );
-
-				drawPos.x += glyphRect.GetWidth();
+				lines.back() += c;
 			}
 		}
+		DrawLines( lines,loc,textCol,gfx,centered );
 	}
 
 	void DrawLines( const std::vector<std::string>& lines,
-		const Vei2& loc,Color textCol,Graphics& gfx ) const
+		const Vei2& loc,Color textCol,Graphics& gfx,
+		bool centered = false ) const
 	{
 		Vei2 drawPos = loc;
 		for( const auto& line : lines )
 		{
+			if( centered )
+			{
+				drawPos.x -= CalcTextWidth( line ) / 2;
+			}
 			for( char c : line )
 			{
 				assert( c != '\n' );
@@ -84,7 +85,7 @@ public:
 		}
 	}
 
-	int CalculateTextWidth( const std::string& text ) const
+	int CalcTextWidth( const std::string& text ) const
 	{
 		int width = 0;
 		for( char c : text )

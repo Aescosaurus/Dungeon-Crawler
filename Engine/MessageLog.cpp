@@ -31,7 +31,7 @@ void MessageLog::Draw( Graphics& gfx ) const
 
 void MessageLog::Log( const std::string& message )
 {
-	if( unluckyPixel->CalculateTextWidth( message ) >
+	if( unluckyPixel->CalcTextWidth( message ) >
 		maxMessageX - minMessageX )
 	{
 		std::vector<std::string> lines;
@@ -39,7 +39,7 @@ void MessageLog::Log( const std::string& message )
 
 		for( char c : message )
 		{
-			if( unluckyPixel->CalculateTextWidth(
+			if( unluckyPixel->CalcTextWidth(
 				lines.back() + c ) < maxMessageX - minMessageX )
 			{
 				lines.back() += c;
@@ -63,7 +63,7 @@ void MessageLog::Log( const std::string& message )
 
 void MessageLog::AddMessage( const std::string& message )
 {
-	assert( unluckyPixel->CalculateTextWidth( message ) <=
+	assert( unluckyPixel->CalcTextWidth( message ) <=
 		maxMessageX - minMessageX );
 
 	messages.pop_front();
