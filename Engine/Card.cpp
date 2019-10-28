@@ -52,6 +52,12 @@ Card::Card( const std::string& name,int damage,int range,
 	anim( 0,0,60,60,4,*sprSheet )
 {}
 
+int Card::CalcDamage( int attackStat ) const
+{
+	return( int( std::ceil( float( attackStat ) *
+		float( damage ) / 100.0f ) ) );
+}
+
 Color Card::Type2Color( Type t )
 {
 	static constexpr Color colors[] =

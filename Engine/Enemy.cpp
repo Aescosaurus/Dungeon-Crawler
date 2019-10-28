@@ -1,11 +1,5 @@
 #include "Enemy.h"
 
-Enemy::Enemy( const Vec2& pos,Color c )
-	:
-	pos( pos ),
-	c( c )
-{}
-
 bool Enemy::UpdateTurn( float dt )
 {
 	switch( action )
@@ -56,16 +50,36 @@ void Enemy::Draw( const Camera& cam ) const
 	cam.RenderRect( pos,c );
 }
 
+int Enemy::Attack( int damage )
+{
+	health -= damage;
+
+	// TODO: Reduce damage by defense.
+	return( damage );
+}
+
 const Vec2& Enemy::GetPos() const
 {
 	return( pos );
 }
 
+bool Enemy::IsExpl() const
+{
+	return( health <= 0 );
+}
+
+Enemy::Enemy( const Vec2& pos,Color c,int health )
+	:
+	pos( pos ),
+	c( c ),
+	health( health )
+{}
+
 bool Enemy::Move( const Vei2& dir,EnemyUpdateInfo& info )
 {
 	assert( dir.x == 0 || dir.y == 0 );
 	bool canMove = true;
-	if( info.player.GetPos() == pos + Vec2( dir ) )
+	if( info.playerPos == pos + Vec2( dir ) )
 	{
 		canMove = false;
 	}

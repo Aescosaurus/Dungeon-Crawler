@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Timer.h"
 #include "Deck.h"
+#include "MessageLog.h"
 
 class CardHandler
 {
@@ -27,7 +28,8 @@ public:
 
 	void StartTurn( const Vec2& target,Dir::Direction dir );
 	bool PlaySelectedCard( float dt );
-	void EndTurn();
+	void EndTurn( Enemy* enemy,const Stats& stats,
+		MessageLog& msgLog );
 	void DeselectCard();
 
 	bool HasSelectedCard() const;

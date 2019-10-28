@@ -136,12 +136,18 @@ bool CardHandler::PlaySelectedCard( float dt )
 	return( curCardAnim->IsDone() );
 }
 
-void CardHandler::EndTurn()
+void CardHandler::EndTurn( Enemy* enemy,const Stats& stats,
+	MessageLog& msgLog )
 {
+	if( enemy != nullptr )
+	{
+		const auto dmg = deck.GetCardRef( selectedCard ).Play(
+			CardUpdateInfo{ *enemy,stats } );
+		msgLog.Log( "Card did " + std::to_string( dmg ) + " damage!" );
+	}
+	
 	deck.Discard( selectedCard );
 	curCardAnim = nullptr;
-
-	// TODO: Deal damage to enemy.
 
 	selectedCard = -1;
 }

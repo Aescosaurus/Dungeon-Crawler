@@ -13,4 +13,9 @@ public:
 			"Images/Cards/BasicStrike.bmp",
 			"Images/Cards/BasicStrikeAnim.bmp" )
 	{}
+
+	int Play( CardUpdateInfo& info ) override
+	{
+		return( info.enemy.Attack( CalcDamage( info.stats.attack ) ) );
+	}
 };

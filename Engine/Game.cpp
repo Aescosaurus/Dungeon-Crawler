@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include <functional>
 
 Game::Game( MainWindow& wnd )
 	:
@@ -62,15 +63,22 @@ void Game::UpdateModel()
 		}
 		break;
 	case State::PlayerEnd:
-		if( player.EndTurn() )
+		if( player.EndTurn( enemies ) )
 		{
+			chili::remove_erase_if( enemies,
+				std::mem_fn( &Enemy::IsExpl ) );
 			gameState = State::EnemyStart;
 			curEnemy = enemies.begin();
+			if( curEnemy == enemies.end() )
+			{
+				gameState = State::PlayerStart;
+			}
 		}
 		break;
 	case State::EnemyStart:
 	{
-		EnemyUpdateInfo euInfo{ tilemap,player,enemies,dt };
+		EnemyUpdateInfo euInfo{ tilemap,player.GetPos(),
+			enemies,dt };
 		if( ( *curEnemy )->StartTurn( euInfo ) )
 		{
 			gameState = State::EnemyTurn;
@@ -85,6 +93,7 @@ void Game::UpdateModel()
 		break;
 	case State::EnemyEnd:
 		( *curEnemy )->EndTurn();
+
 		++curEnemy;
 		if( curEnemy == enemies.end() )
 		{
