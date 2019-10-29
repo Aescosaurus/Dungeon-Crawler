@@ -4,7 +4,8 @@
 #include <fstream>
 #include "Graphics.h"
 
-Surface::Surface( int width,int height ) :
+Surface::Surface( int width,int height )
+	:
 	width( width ),
 	height( height ),
 	pixels( width * height )

@@ -30,7 +30,7 @@ public:
 				else move.y = -1;
 			}
 		}
-		while( info.tilemap.GetTile( Vei2( pos + move ) ) ==
+		while( info.tilemap.GetTile( Vei2( pos + move ) ) >=
 			TileMap::TileType::Wall );
 		if( Enemy::Move( move,info ) )
 		{

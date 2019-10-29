@@ -59,6 +59,7 @@ Card::Card( const std::string& name,int damage,int range,
 
 int Card::CalcDamage( int attackStat ) const
 {
+	// Round damage up to benefit early game and fall off later.
 	return( int( std::ceil( float( attackStat ) *
 		float( damage ) / 100.0f ) ) );
 }

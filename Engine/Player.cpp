@@ -38,8 +38,8 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
 
 	if( move != Vei2::Zero() )
 	{
-		if( tilemap.GetTile( Vei2( pos ) + move ) ==
-			TileMap::TileType::Floor &&
+		if( tilemap.GetTile( Vei2( pos ) + move ) <
+			TileMap::TileType::Wall &&
 			std::find_if( enemies.begin(),enemies.end(),[&]
 			( const std::unique_ptr<Enemy>& curEnemy )
 		{

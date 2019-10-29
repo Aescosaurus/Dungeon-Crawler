@@ -146,9 +146,9 @@ void CardHandler::EndTurn( Enemy* enemy,const Stats& stats,
 		const auto dmg = curCard.Play(
 			CardUpdateInfo{ *enemy,stats } );
 
-		hitNums.emplace_back( HitNumber{ Vei2( cam.AbsoluteToRelative(
-			enemy->GetPos() ) ) * Camera::tileSize +
-			Vei2{ Camera::tileSize / 2,10 },dmg } );
+		// hitNums.emplace_back( HitNumber{ Vei2( cam.AbsoluteToRelative(
+		// 	enemy->GetPos() ) ) * Camera::tileSize +
+		// 	Vei2{ Camera::tileSize / 2,10 },dmg } );
 
 		msgLog.Log( curCard.GetName() + " did " +
 			std::to_string( dmg ) + " damage to " +
