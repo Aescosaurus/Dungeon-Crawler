@@ -161,7 +161,7 @@ TileMap::TileType TileMap::GetTile( int x,int y ) const
 	if( x < 0 || x >= width ||
 		y < 0 || y >= height )
 	{
-		return( TileType::Wall );
+		return( TileType::WallCoated );
 	}
 	else
 	{
