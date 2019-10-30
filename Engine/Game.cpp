@@ -92,6 +92,12 @@ void Game::UpdateModel()
 		{
 			gameState = State::EnemyEnd;
 		}
+		else if( !cam.IsOnScreen( cam.AbsoluteToRelative(
+			( *curEnemy )->GetPos() ) ) )
+		{
+			while( !( *curEnemy )->UpdateTurn( dt ) );
+			gameState = State::EnemyEnd;
+		}
 		break;
 	case State::EnemyEnd:
 		( *curEnemy )->EndTurn();

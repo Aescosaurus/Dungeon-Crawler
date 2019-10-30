@@ -20,6 +20,7 @@ public:
 	void CenterOn( const Vec2& pos );
 
 	const Rect& GetViewArea() const;
+	// Takes relative coordinates.
 	bool IsOnScreen( const Vei2& pos ) const;
 	Vec2 RelativeToAbsolute( const Vec2& rel ) const;
 	Vec2 AbsoluteToRelative( const Vec2& loc ) const;
