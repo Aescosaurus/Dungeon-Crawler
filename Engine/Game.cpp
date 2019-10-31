@@ -32,8 +32,11 @@ Game::Game( MainWindow& wnd )
 {
 	cam.CenterOn( player.GetPos() );
 
-	enemies.emplace_back( std::make_unique<Rat>(
-		player.GetPos() + Vec2::Right() * 2 ) );
+	for( int i = 0; i < 3; ++i )
+	{
+		enemies.emplace_back( std::make_unique<Rat>(
+			tilemap.GetRandFloorPos() ) );
+	}
 }
 
 void Game::Go()
@@ -50,67 +53,76 @@ void Game::UpdateModel()
 
 	for( auto& num : hitNums ) num.Update( dt );
 	chili::remove_erase_if( hitNums,std::mem_fn( &HitNumber::IsDone ) );
-	switch( gameState )
+
+	bool keepGoing = true;
+	while( keepGoing )
 	{
-	case State::PlayerStart:
-		if( player.StartTurn( wnd.kbd,wnd.mouse,enemies ) )
+		switch( gameState )
 		{
-			gameState = State::PlayerTurn;
+		case State::PlayerStart:
+			if( player.StartTurn( wnd.kbd,wnd.mouse,enemies ) )
+			{
+				gameState = State::PlayerTurn;
+			}
+			break;
+		case State::PlayerTurn:
+			if( player.UpdateTurn( wnd.mouse,dt ) )
+			{
+				gameState = State::PlayerEnd;
+			}
+			break;
+		case State::PlayerEnd:
+			if( player.EndTurn( enemies,hitNums ) )
+			{
+				chili::remove_erase_if( enemies,
+					std::mem_fn( &Enemy::IsExpl ) );
+				gameState = State::EnemyStart;
+				curEnemy = enemies.begin();
+				if( curEnemy == enemies.end() )
+				{
+					gameState = State::PlayerStart;
+				}
+			}
+			break;
+		case State::EnemyStart:
+		{
+			EnemyUpdateInfo euInfo{ tilemap,player.GetPos(),
+				enemies,dt };
+			if( ( *curEnemy )->StartTurn( euInfo ) )
+			{
+				gameState = State::EnemyTurn;
+				continue;
+			}
 		}
 		break;
-	case State::PlayerTurn:
-		if( player.UpdateTurn( wnd.mouse,dt ) )
-		{
-			gameState = State::PlayerEnd;
-		}
-		break;
-	case State::PlayerEnd:
-		if( player.EndTurn( enemies,hitNums ) )
-		{
-			chili::remove_erase_if( enemies,
-				std::mem_fn( &Enemy::IsExpl ) );
-			gameState = State::EnemyStart;
-			curEnemy = enemies.begin();
+		case State::EnemyTurn:
+			if( ( *curEnemy )->UpdateTurn( dt ) )
+			{
+				gameState = State::EnemyEnd;
+			}
+			else if( !cam.IsOnScreen( cam.AbsoluteToRelative(
+				( *curEnemy )->GetPos() ) ) )
+			{
+				while( !( *curEnemy )->UpdateTurn( dt ) );
+				gameState = State::EnemyEnd;
+				continue;
+			}
+			break;
+		case State::EnemyEnd:
+			( *curEnemy )->EndTurn();
+
+			++curEnemy;
 			if( curEnemy == enemies.end() )
 			{
 				gameState = State::PlayerStart;
 			}
+			else
+			{
+				gameState = State::EnemyStart;
+				continue;
+			}
 		}
-		break;
-	case State::EnemyStart:
-	{
-		EnemyUpdateInfo euInfo{ tilemap,player.GetPos(),
-			enemies,dt };
-		if( ( *curEnemy )->StartTurn( euInfo ) )
-		{
-			gameState = State::EnemyTurn;
-		}
-	}
-	break;
-	case State::EnemyTurn:
-		if( ( *curEnemy )->UpdateTurn( dt ) )
-		{
-			gameState = State::EnemyEnd;
-		}
-		else if( !cam.IsOnScreen( cam.AbsoluteToRelative(
-			( *curEnemy )->GetPos() ) ) )
-		{
-			while( !( *curEnemy )->UpdateTurn( dt ) );
-			gameState = State::EnemyEnd;
-		}
-		break;
-	case State::EnemyEnd:
-		( *curEnemy )->EndTurn();
-
-		++curEnemy;
-		if( curEnemy == enemies.end() )
-		{
-			gameState = State::PlayerStart;
-		}
-		else
-		{
-			gameState = State::EnemyStart;
-		}
+		keepGoing = false;
 	}
 }
 

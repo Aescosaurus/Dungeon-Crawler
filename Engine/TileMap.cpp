@@ -18,12 +18,15 @@ void TileMap::Draw( const Camera& cam ) const
 		// for( int x = 0; x < width; ++x )
 		for( int x = viewArea.left - 1; x < viewArea.right + 1; ++x )
 		{
-			// const auto col = ( GetTile( x,y ) == TileType::Wall )
-			// 	? Colors::Green3 : Colors::Green1;
-			// cam.RenderRect( Vec2( Vei2{ x,y } ),col );
+#if NDEBUG
 			const auto& spr = tileSprites[int( GetTile( x,y ) )];
 			cam.RenderImage( Vec2( Vei2{ x,y } ),
 				&spr,spr.GetRect() );
+#else
+			const auto col = ( GetTile( x,y ) >= TileType::Wall )
+				? Colors::Green3 : Colors::Green1;
+			cam.RenderRect( Vec2( Vei2{ x,y } ),col );
+#endif
 		}
 	}
 }
