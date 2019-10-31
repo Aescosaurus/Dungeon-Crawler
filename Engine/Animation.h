@@ -50,6 +50,11 @@ public:
 		curFrame = 0;
 		finished = false;
 	}
+	void SetFrame( int frame )
+	{
+		curFrame = frame;
+		curFrameTime = frame * holdTime;
+	}
 
 	bool IsDone() const
 	{

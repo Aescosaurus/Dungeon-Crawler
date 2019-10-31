@@ -14,12 +14,17 @@ Player::Player( const Vec2& pos,const TileMap& tilemap,
 {
 	stats.UpdateStats( cardHandler.GetCards() );
 
+	// for( int i = 0; i < 4; ++i )
+	// {
+	// 	frames.emplace_back( RectI{
+	// 		( img->GetWidth() / 4 ) * i,
+	// 		( img->GetWidth() / 4 ) * ( i + 1 ),
+	// 		0,img->GetHeight() } );
+	// }
 	for( int i = 0; i < 4; ++i )
 	{
-		frames.emplace_back( RectI{
-			( img->GetWidth() / 4 ) * i,
-			( img->GetWidth() / 4 ) * ( i + 1 ),
-			0,img->GetHeight() } );
+		anims.emplace_back( Animation{ 0,i * 60,60,60,4,
+			*sprSheet } );
 	}
 }
 
@@ -38,6 +43,8 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
 
 	if( move != Vei2::Zero() )
 	{
+		// lookAnim.SetFrame( int( Dir::Vec2Dir( move ) ) );
+
 		if( tilemap.GetTile( Vei2( pos ) + move ) <
 			TileMap::TileType::Wall &&
 			std::find_if( enemies.begin(),enemies.end(),[&]
@@ -48,6 +55,8 @@ bool Player::StartTurn( const Keyboard& kbd,Mouse& mouse,
 		{
 			lookDir = Dir::Vec2Dir( move );
 			target = Vei2( pos ) + move;
+			if( ++curAnimFrame >= 4 ) curAnimFrame = 0;
+			anims[int( lookDir )].SetFrame( frameOrder[curAnimFrame] );
 			turn = TurnType::Movement;
 			return( true );
 		}
@@ -120,7 +129,8 @@ bool Player::EndTurn( std::vector<std::unique_ptr<Enemy>>& enemies,
 	case TurnType::None:
 		break;
 	case TurnType::Movement:
-		msgLog.Log( "Moving!" );
+		//// msgLog.Log( "Moving!" );
+		anims[int( lookDir )].SetFrame( 0 );
 		pos = target;
 		cam.CenterOn( pos );
 		move = { 0,0 };
@@ -150,7 +160,9 @@ bool Player::EndTurn( std::vector<std::unique_ptr<Enemy>>& enemies,
 void Player::Draw( const Camera& cam ) const
 {
 	// cam.RenderRect( pos,Colors::Blue1 );
-	cam.RenderImage( pos,img,frames[int( lookDir )] );
+	// cam.RenderImage( pos,img,frames[int( lookDir )] );
+	// lookAnim.Draw( pos,cam );
+	anims[int( lookDir )].Draw( pos,cam );
 }
 
 const Vec2& Player::GetPos() const

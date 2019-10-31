@@ -10,6 +10,7 @@
 #include "Stats.h"
 #include "Codex.h"
 #include "Dir.h"
+#include "Animation.h"
 
 class Player
 {
@@ -44,7 +45,11 @@ private:
 	Timer moveTimer = Timer::turnTime;
 	TurnType turn = TurnType::None;
 	Stats stats;
-	CSurfPtr img = SurfCodex::Fetch( "Images/Player.bmp" );
-	std::vector<RectI> frames;
+	CSurfPtr sprSheet = SurfCodex::Fetch( "Images/Player.bmp" );
+	// std::vector<RectI> frames;
+	// Animation lookAnim;
+	std::vector<Animation> anims;
+	static constexpr int frameOrder[] = { 0,1,0,2 };
+	int curAnimFrame = 0;
 	Dir::Direction lookDir = Dir::Direction::Up;
 };
